@@ -1,18 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap');
+
+:root {
+    --fuente-principal: "Jura", sans-serif;
+    --fuente-fuerte: "Archivo Black", sans-serif;
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-
 }
 
 body {
     display: flex;
     flex-direction: column;
     min-width: 100vh;
+    font-family: var(--fuente-principal);
 
     header {
         padding: 1rem;
         background-color: black;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
     }
 
     main {
@@ -57,11 +67,10 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: var(--fuente-fuerte);
 }
 
 .diseños h3 {
     text-align: start;
     margin: 2rem;
 }
-
-
