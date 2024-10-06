@@ -18,7 +18,7 @@ body {
     font-family: var(--fuente-principal);
 
     header {
-        padding: 1rem;
+        padding: 0.5rem;
         background-color: black;
         position: fixed;
         width: 100%;
@@ -36,16 +36,19 @@ body {
     }
 }
 
+/* header */
+
 header img {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1rem;
+    width: 1rem;
     padding: none;
 }
 
-nav {
+ header nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    color : white;
 }
 
 .hp1 {
@@ -59,6 +62,8 @@ nav {
     align-items: center;
     gap: 2rem;
 }
+
+/* main */
 
 .inicio {
     background-color: #DBFF73;
@@ -74,3 +79,7 @@ nav {
     text-align: start;
     margin: 2rem;
 }
+
+
+
+/* footer */
