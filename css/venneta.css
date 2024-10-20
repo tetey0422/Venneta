@@ -18,7 +18,7 @@ body {
     font-family: var(--fuente-principal);
 
     header {
-        padding: 0.5rem;
+        padding: 0;
         background-color: black;
         position: fixed;
         width: 100%;
@@ -38,13 +38,17 @@ body {
 
 /* header */
 
-header img {
+.hp1 img {
+    padding: none;
+}
+
+.hp2 img {
     height: 1rem;
     width: 1rem;
     padding: none;
 }
 
- header nav {
+header nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
