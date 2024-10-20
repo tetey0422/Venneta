@@ -23,36 +23,50 @@ body {
         position: fixed;
         width: 100%;
         z-index: 100;
+
+        a {
+            color: white;
+        }
+
     }
 
     main {
         flex: 1;
         background-color: white;
+
+        a:hover {
+            color: #665a69;
+        }
     }
 
     footer {
         padding: 1rem;
         background-color: #D9D9D9;
+
+        a:hover {
+            color: #ffffff;
+        }
     }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover {
+        color: #DBFF73;
+    }
+
 }
 
 /* header */
-
-.hp1 img {
-    padding: none;
-}
-
-.hp2 img {
-    height: 1rem;
-    width: 1rem;
-    padding: none;
-}
 
 header nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color : white;
+    color: white;
+    gap: 40rem;
 }
 
 .hp1 {
@@ -67,6 +81,17 @@ header nav {
     gap: 2rem;
 }
 
+.hp1 img {
+    display: flex;
+    align-items: center;
+}
+
+.hp2 img {
+    height: 1rem;
+    width: 1rem;
+    padding: none;
+}
+
 /* main */
 
 .inicio {
@@ -79,7 +104,44 @@ header nav {
     font-family: var(--fuente-fuerte);
 }
 
-.diseños h3 {
+.diseNos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem;
+}
+
+.diseNos nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.diseNos nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    list-style-type: none;
+}
+
+.diseNos nav button {
+    background-color: #DBFF73;
+    border-radius: 50px;
+    border: none;
+    padding: 5px 20px;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
+    color: black;
+    display: inline-block;
+    width: 9.375rem;
+    height: 2.5rem;
+}
+
+.diseNos h3 {
     text-align: start;
     margin: 2rem;
 }
