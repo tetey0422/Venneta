@@ -134,11 +134,23 @@ header nav {
     font-family: var(--fuente-principal);
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.5s;
+    /* transition: 0.5s; */
     color: black;
     display: inline-block;
     width: 9.375rem;
     height: 2.5rem;
+}
+
+.diseNos nav button:hover {
+    background-color: #657536;
+    color: white;
+    transition: 0s;
+}
+
+.diseNos nav button:active {
+    background-color: #ffffff;
+    color: #7B7B7B;
+    transition: 0s;
 }
 
 .diseNos h3 {
