@@ -147,4 +147,4 @@ create table if not exists TFactura(
     foreign key (nEmpleadoLoginID) references TEmpleadoLogin(nEmpleadoLoginID)
 )engine=INNODB;
 
-drop database bdvenneta;
+-- drop database bdvenneta;

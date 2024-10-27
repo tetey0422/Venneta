@@ -1,0 +1,65 @@
+:root {
+    --fuente-principal: "Jura", sans-serif;
+    --fuente-fuerte: "Archivo Black", sans-serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 100vh;
+    font-family: var(--fuente-principal);
+
+    footer {
+        padding: 1rem;
+        background-color: #D9D9D9;
+
+        a:hover {
+            color: #ffffff;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover {
+        color: #DBFF73;
+    }
+
+}
+
+/* footer */
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer img {
+    width: 2%;
+    height: 2%;
+    object-fit: cover;
+}
+
+.contacto {
+    display: flex;
+    flex-direction: row;
+    gap: 20rem;
+    align-items: center;
+    padding: 2rem;
+}
+
+.redes-sociales,
+.accesos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

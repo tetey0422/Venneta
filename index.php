@@ -15,21 +15,7 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="hp1">
-                <a href="./index.html"><img src="../img/LOGO.png" alt="Logo de Venneta"></a>
-                <a href="./index.html">Inicio</a>
-                <a href="#diseNos">Diseños</a>
-                <a href="#contacto">contacto</a>
-            </div>
-            <div class="hp2">
-                <a href="#usuario" aria-label="Perfil de usuario"><img src="../img/image_2.png" alt="usuario"></a>
-                <a href="#carrito" aria-label="Carrito de compras"><img src="../img/image.png"
-                        alt="carrito de compras"></a>
-            </div>
-        </nav>
-    </header>
+    <?php include 'includes/header.php'; ?>
     <main>
         <div id="inicio" class="inicio">
             <h1>VENNETA</h1>
@@ -62,26 +48,7 @@
             <button>VER MÁS</button>
         </div>
     </main>
-    <footer>
-        <img src="../img/venneta_logo.png" alt="LOGO">
-        <section id="contacto" class="contacto">
-            <div class="redes-sociales">
-                <a href="https://wa.me/+5731?text=Hola%2C,%20estoy%20interesado%20en%20tu%20producto" target="_blank"
-                    rel="noreferrer">WhatsApp</a>
-                <a href="https://www.instagram.com/venneta_col/" target="_blank" rel="noreferrer">Instagram</a>
-            </div>
-            <div class="accesos">
-                <a href="" rel="noreferrer">INICIO</a>
-                <a href="" rel="noreferrer">DISEÑO</a>
-                <a href="" rel="noreferrer">CONTACTOS</a>
-                <a href="" rel="noreferrer">CARRITO</a>
-                <a href="" rel="noreferrer">PERFIL</a>
-            </div>
-        </section>
-        <section>
-            <p>&copy; 2024 Tienda de Ropa Venneta. Todos los derechos reservados.</p>
-        </section>
-    </footer>
+    <?php include 'includes/footer.php'; ?>
 </body>
 
 </html>
