@@ -8,7 +8,7 @@
             <a href="https://www.instagram.com/venneta_col/" target="_blank" rel="noreferrer">Instagram</a>
         </div>
         <div class="accesos">
-            <a href="" rel="noreferrer">INICIO</a>
+            <a href="#inicio" rel="noreferrer">INICIO</a>
             <a href="" rel="noreferrer">DISEÑO</a>
             <a href="" rel="noreferrer">CONTACTOS</a>
             <a href="" rel="noreferrer">CARRITO</a>

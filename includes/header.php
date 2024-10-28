@@ -1,4 +1,4 @@
-<header>
+<header id="inicio">
     <link rel="stylesheet" href="./css/header.css">
     <nav>
         <div class="hp1">

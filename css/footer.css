@@ -7,6 +7,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -64,10 +65,10 @@ footer img {
     gap: 1rem;
 }
 
-@media (max-width: 1023px) {
+/* @media (max-width: 1023px) {
 
 }
 
 @media (max-width: 767px) {
 
-}
+} */

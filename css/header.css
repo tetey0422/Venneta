@@ -7,6 +7,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -63,7 +64,7 @@ header nav {
     padding: none;
 }
 
-@media (max-width: 1023px) {
+/* @media (max-width: 1023px) {
 
     header nav {
         gap: 1rem 15rem;
@@ -73,8 +74,6 @@ header nav {
 
 @media (max-width: 767px) {
 
-    header nav {
-        gap: 1rem 10rem;
-    }
+    
 
-}
+} */
