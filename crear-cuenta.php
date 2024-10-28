@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <main class="login-container">
-        <img src="img/logo.png" alt="Venneta">
+        <img src="img/logo1.png" alt="Venneta">
         <?php if ($error): ?>
             <p class="error"><?php echo $error; ?></p>
         <?php endif; ?>

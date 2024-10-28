@@ -5,6 +5,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: var(--fuente-principal);
 }
 
 body {
@@ -13,15 +14,6 @@ body {
     padding: 0;
     background-color: #ffffff;
     color: #000000;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--fuente-fuerte);
 }
 
 .container {
@@ -38,7 +30,6 @@ h6 {
 }
 
 body {
-    font-family: var(--fuente-principal);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -49,9 +40,7 @@ body {
 .login-container {
     width: 100%;
     max-width: 500px;
-    /* Aumentado de 375px a 500px */
     padding: 40px;
-    /* Aumentado de 20px a 40px */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,10 +48,8 @@ body {
 
 .login-container img {
     width: 280px;
-    /* Aumentado de 200px a 280px */
     height: auto;
     margin-bottom: 5rem;
-    /* Aumentado de 4rem a 5rem */
 }
 
 .login-container form {
@@ -70,7 +57,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    /* Aumentado de 25px a 30px */
 }
 
 .password-container {
@@ -91,44 +77,35 @@ body {
 
 .toggle-password img {
     width: 25px;
-    /* Aumentado de 20px a 25px */
     height: 25px;
 }
 
 .login-container input {
     width: 100%;
     padding: 16px 20px;
-    /* Aumentado de 12px 15px a 16px 20px */
     border: none;
     border-radius: 8px;
-    /* Aumentado de 4px a 8px */
     background-color: #E8E8E8;
-    font-family: var(--fuente-principal);
     font-size: 16px;
-    /* Aumentado de 14px a 16px */
 }
 
 .login-container input::placeholder {
     color: #000;
     text-transform: uppercase;
     font-size: 16px;
-    /* Añadido tamaño de fuente para placeholder */
 }
 
 .login-container button[type="submit"] {
     width: 100%;
     padding: 16px;
-    /* Aumentado de 12px a 16px */
     border: none;
     border-radius: 8px;
     background-color: #DEFFB4;
     color: #000;
-    font-family: var(--fuente-principal);
     font-size: 16px;
     cursor: pointer;
     text-transform: uppercase;
     margin-top: 15px;
-    /* Aumentado de 10px a 15px */
     transition: all 0.3s ease;
 }
 
@@ -136,17 +113,14 @@ body {
     background-color: #c7e89d;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    /* Aumentada la sombra */
 }
 
 .forgot-password {
-    font-family: var(--fuente-principal);
     font-size: 16px;
     color: #000;
     text-decoration: none;
     text-transform: uppercase;
     margin-top: 35px;
-    /* Aumentado de 25px a 35px */
     transition: all 0.3s ease;
 }
 
@@ -164,11 +138,9 @@ body {
     text-decoration: none;
     text-align: center;
     border-radius: 8px;
-    font-family: var(--fuente-principal);
     font-size: 16px;
     text-transform: uppercase;
     margin-top: 35px;
-    /* Aumentado de 25px a 35px */
     transition: all 0.3s ease;
 }
 
@@ -182,12 +154,11 @@ body {
     color: #ff0000;
     text-align: center;
     margin-bottom: 30px;
-    /* Aumentado de 20px a 30px */
-    font-family: var(--fuente-principal);
     font-size: 16px;
 }
 
-/* Media Queries para responsividad */
+/* 
+Media Queries para responsividad
 @media (max-width: 768px) {
     .login-container {
         max-width: 90%;
@@ -205,4 +176,4 @@ body {
         padding: 14px;
         font-size: 15px;
     }
-}
+} */
