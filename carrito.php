@@ -7,7 +7,7 @@
     <meta name="descripcion" content="⚡TIENDA VIRTUAL⚡ ¡TODOS LOS DISEÑOS DISPONIBLES! ENVIOS A TODO COLOMBIA 🇨🇴">
     <meta name="keywords" content="ropa, tienda de ropa, moda, descuentos, ropa de hombre, ropa de mujer">
     <meta name="author" content="Tienda de Ropa Venneta">
-    <title>Venneta - Diseño</title>
+    <title>Venneta - Carrito</title>
     <link rel="icon" type="image/jpg" href="./img/venneta_logo.png">
     <link rel="stylesheet" href="./css/diseno.css">
     <link rel="stylesheet"
@@ -17,7 +17,7 @@
 <body>
     <?php include 'includes/header.php'; ?>
     <main>
-        $sql = "SELECT * FROM productos WHERE categoria = 'diseno'";
+
     </main>
     <?php include 'includes/footer.php'; ?>
 </body>
