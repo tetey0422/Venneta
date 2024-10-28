@@ -37,7 +37,7 @@ header nav {
     justify-content: space-around;
     align-items: center;
     color: white;
-    gap: 30rem;
+    gap: 1rem 20rem;
 }
 
 .hp1 {
@@ -61,4 +61,20 @@ header nav {
     height: 1rem;
     width: 1rem;
     padding: none;
+}
+
+@media (max-width: 1023px) {
+
+    header nav {
+        gap: 1rem 15rem;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    header nav {
+        gap: 1rem 10rem;
+    }
+
 }

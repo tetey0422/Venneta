@@ -63,3 +63,11 @@ footer img {
     flex-direction: column;
     gap: 1rem;
 }
+
+@media (max-width: 1023px) {
+
+}
+
+@media (max-width: 767px) {
+
+}
