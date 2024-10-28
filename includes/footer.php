@@ -3,10 +3,6 @@
     <img src="./img/venneta_logo.png" alt="LOGO">
     <section id="contacto" class="contacto">
         <div class="redes-sociales">
-            <ul>
-                <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
-                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-            </ul>
             <a href="https://wa.me/+5731?text=Hola%2C,%20estoy%20interesado%20en%20tu%20producto" target="_blank"
                 rel="noreferrer">WhatsApp</a>
             <a href="https://www.instagram.com/venneta_col/" target="_blank" rel="noreferrer">Instagram</a>
