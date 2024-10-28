@@ -16,6 +16,9 @@
 
 <body>
     <?php include 'includes/header.php'; ?>
+    <main>
+        $sql = "SELECT * FROM productos WHERE categoria = 'diseno'";
+    </main>
     <?php include 'includes/footer.php'; ?>
 </body>
 

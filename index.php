@@ -8,8 +8,8 @@
     <meta name="keywords" content="ropa, tienda de ropa, moda, descuentos, ropa de hombre, ropa de mujer">
     <meta name="author" content="Tienda de Ropa Venneta">
     <title>Venneta</title>
-    <link rel="icon" type="image/jpg" href="../img/venneta_logo.png">
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="icon" type="image/jpg" href="./img/venneta_logo.png">
+    <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap">
 </head>
@@ -25,21 +25,21 @@
             <nav>
                 <div class="diseNo">
                     <a href="#CAMISA">
-                        <img src="../img/Screenshot_1.png" alt="Ropa 1">
+                        <img src="./img/Screenshot_1.png" alt="Ropa 1">
                         <h3>ROPA 1</h3>
                         <p>Descripción de la ropa 1</p>
                     </a>
                 </div>
                 <div class="diseNo">
                     <a href="#CAMISA">
-                        <img src="../img/Screenshot_1.png" alt="Ropa 2">
+                        <img src="./img/Screenshot_1.png" alt="Ropa 2">
                         <h3>ROPA 2</h3>
                         <p>Descripción de la ropa 2</p>
                     </a>
                 </div>
                 <div class="diseNo">
                     <a href="#CAMISA">
-                        <img src="../img/Screenshot_1.png" alt="Ropa 3">
+                        <img src="./img/Screenshot_1.png" alt="Ropa 3">
                         <h3>ROPA 3</h3>
                         <p>Descripción de la ropa 3</p>
                     </a>
