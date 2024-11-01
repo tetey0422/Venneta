@@ -54,6 +54,26 @@ body {
     align-items: center;
 }
 
+.diseNo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.diseNos a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.diseNo img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
 main button {
     background-color: #DBFF73;
     border-radius: 50px;
