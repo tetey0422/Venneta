@@ -26,10 +26,24 @@ body {
 
 }
 
-main .diseNos {
+.diseNos {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
     margin: 2rem;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+}
+
+.diseNo {
+    text-align: center;
+    width: 30%;
+    flex: 1 1 calc(25% - 2rem);
+    box-sizing: border-box;
 }
