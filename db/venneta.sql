@@ -162,9 +162,9 @@ create table if not exists TFactura(
 
 insert into tproducto(cNombre,cDescripcion,nPrecio,cImagen)
 value('Betty la Fea GTA','Camisa 100% algodón, comoda y fresca, con impresión de Betty la Fea GTA',35000,'img/bfGTAn.png'),
-('Van Gogh', 'Camisa 100% algodón, cómoda y fresca, con diseño inspirado en Van Gogh', 35000, 'img/vgb.png'),
-('Capitán América', 'Camisa 100% algodón, cómoda y fresca, con diseño del Capitán América', 35000, 'img/capn.png'),
-('Flash', 'Camisa 100% algodón, cómoda y fresca, con diseño de Flash', 35000, 'img/mm.png');
+('Van Gogh', 'Camisa 100% algodón, cómoda y fresca, con diseño inspirado en Van Gogh', 35000, 'img/vgb.jpg'),
+('Capitán América', 'Camisa 100% algodón, cómoda y fresca, con diseño del Capitán América', 35000, 'img/capn.jpg'),
+('Flash', 'Camisa 100% algodón, cómoda y fresca, con diseño de Flash', 35000, 'img/mm.jpg');
 
 insert into ttalla(cTalla)
 value('S'),('M'),('L'),('XL'),('XXL');
