@@ -54,7 +54,7 @@ body {
     align-items: center;
 }
 
-.diseNo {
+.diseNos {
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -68,10 +68,8 @@ body {
     gap: 1rem;
 }
 
-.diseNo img {
-    width: 80%;
+.diseNos img {
     height: 80%;
-    object-fit: cover;
 }
 
 main button {
@@ -83,7 +81,6 @@ main button {
     font-size: 1rem;
     cursor: pointer;
     color: black;
-    display: inline-block;
     width: 9.375rem;
     height: 2.5rem;
 }
