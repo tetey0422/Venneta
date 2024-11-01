@@ -68,8 +68,8 @@ body {
     gap: 1rem;
 }
 
-.diseNos img {
-    height: 80%;
+.diseNo a img {
+    width: 80%;
 }
 
 main button {
