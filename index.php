@@ -16,6 +16,7 @@
 
 <body>
     <?php include 'includes/header.php'; ?>
+    <?php include 'includes/config.php'; ?>
     <main>
         <div id="inicio" class="inicio">
             <h1>VENNETA</h1>
@@ -23,29 +24,30 @@
         <div id="diseNos" class="diseNos">
             <h2>DISEÑOS</h2>
             <nav>
-                <div class="diseNo">
-                    <a href="#CAMISA">
-                        <img src="./img/Screenshot_1.png" alt="Ropa 1">
-                        <h3>ROPA 1</h3>
-                        <p>Descripción de la ropa 1</p>
-                    </a>
-                </div>
-                <div class="diseNo">
-                    <a href="#CAMISA">
-                        <img src="./img/Screenshot_1.png" alt="Ropa 2">
-                        <h3>ROPA 2</h3>
-                        <p>Descripción de la ropa 2</p>
-                    </a>
-                </div>
-                <div class="diseNo">
-                    <a href="#CAMISA">
-                        <img src="./img/Screenshot_1.png" alt="Ropa 3">
-                        <h3>ROPA 3</h3>
-                        <p>Descripción de la ropa 3</p>
-                    </a>
-                </div>
+                <?php
+                // Consulta para obtener los productos
+                $sql = "SELECT cNombre, cImagen, nPrecio FROM TProducto LIMIT 3";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Salida de cada fila
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="diseNo">';
+                        echo '<a href="#CAMISA">';
+                        echo '<img src="' . $row["cImagen"] . '" alt="' . $row["cNombre"] . '">';
+                        echo '<h3>' . $row["cNombre"] . '</h3>';
+                        echo '<p>Precio: $' . number_format($row["nPrecio"], 0, '.', ',') . '</p>'; // Formato de precio
+                        echo '</a>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "0 resultados";
+                }
+
+                $conn->close(); // Cerrar conexión
+                ?>
             </nav>
-            <button>VER MÁS</button>
+            <button onclick="location.href='diseno.php';">VER MÁS</button>
         </div>
     </main>
     <?php include 'includes/footer.php'; ?>

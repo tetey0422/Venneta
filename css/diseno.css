@@ -1,0 +1,35 @@
+:root {
+    --fuente-principal: "Jura", sans-serif;
+    --fuente-fuerte: "Archivo Black", sans-serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 100vh;
+    font-family: var(--fuente-principal);
+
+    main {
+        flex: 1;
+        background-color: white;
+
+        a:hover {
+            color: #665a69;
+        }
+    }
+
+}
+
+main .diseNos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem;
+}

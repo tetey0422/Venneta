@@ -3,7 +3,7 @@ Use BDVenneta;
 
 create table if not exists TUsuario(
 	nUsuarioID int auto_increment,
-    cEmail varchar(50),
+    cEmail varchar(50) unique,
     cNombre_Usuario varchar(50),
     cContraseña varchar(200),
     primary key(nUsuarioID)
@@ -42,17 +42,30 @@ create table if not exists TTalla(
     primary key(nTallaID)
 )engine=INNODB;
 
+create table TColor(
+	nColorID int auto_increment,
+    cColor varchar(20),
+    primary key(nColorID)
+    )engine=InnoDB;
+    
 create table if not exists TProducto(
 	nProductoID int auto_increment,
 	cNombre varchar(20),
 	cDescripcion varchar(100),
 	nPrecio int,
 	nStock int,
-	cColor varchar(20),
-	cImagen varchar(20),
+	cImagen varchar(255),
 	nCategoriaID int,
     primary key(nProductoID),
     foreign key (nCategoriaID) references TCategoria(nCategoriaID)
+)engine=INNODB;
+
+create table if not exists TColor_Producto(
+	nColorID int not null,
+	nProductoID int not null,
+    primary key(nColorID,nProductoID),
+    foreign key (nColorID) references TColor(nColorID),
+    foreign key (nProductoID) references TProducto(nProductoID)
 )engine=INNODB;
 
 create table if not exists TTalla_Producto(
@@ -66,10 +79,10 @@ create table if not exists TTalla_Producto(
 create table if not exists TPedido(
 	nPedidoID int auto_increment,
 	dFecha date,
-	nSubTotal int,
+	nSubTotal decimal(10, 2),
 	cEstado varchar(20),
     nCantidad int,
-	nPrecioUnitario float,
+	nPrecioUnitario decimal(10, 2),
     nProductoID int,
     primary key(nPedidoID),
     foreign key (nProductoID) references TProducto(nProductoID)
@@ -146,5 +159,3 @@ create table if not exists TFactura(
     foreign key(nClienteID) references TCliente(nClienteID),
     foreign key (nEmpleadoLoginID) references TEmpleadoLogin(nEmpleadoLoginID)
 )engine=INNODB;
-
--- drop database bdvenneta;
