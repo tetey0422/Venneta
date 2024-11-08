@@ -18,6 +18,7 @@ body {
     main {
         flex: 1;
         background-color: white;
+        margin-top: 4%;
 
         a:hover {
             color: #665a69;
@@ -31,19 +32,28 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    margin: 2rem;
+    margin: 1rem;
 }
 
-nav {
+.diseNos nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     gap: 2rem;
-
+    align-items: center;
 }
 
-.diseNo {
-    text-align: center;
-    width: 30%;
-    flex: 1 1 calc(25% - 2rem);
-    box-sizing: border-box;
+.diseNos a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.diseNo a img {
+    width: 80%;
+}
+
+.diseNos h2 {
+    text-align: start;
+    height: 2rem;
 }

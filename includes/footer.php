@@ -9,7 +9,7 @@
         </div>
         <div class="accesos">
             <a href="./index.php" rel="noreferrer">INICIO</a>
-            <a href="" rel="noreferrer">DISEÑO</a>
+            <a href="./diseno.php" rel="noreferrer">DISEÑO</a>
             <a href="#contacto" rel="noreferrer">CONTACTOS</a>
             <a href="" rel="noreferrer">CARRITO</a>
         </div>

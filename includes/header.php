@@ -4,7 +4,7 @@
         <div class="hp1">
             <a href="./index.php"><img src="./img/LOGO.png" alt="Logo de Venneta"></a>
             <a href="./index.php">Inicio</a>
-            <a href="./disenos.php">Diseños</a>
+            <a href="./diseno.php">Diseños</a>
             <a href="#contacto">contacto</a>
         </div>
         <div class="hp2">
