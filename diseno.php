@@ -21,8 +21,19 @@
         <div id="diseNos" class="diseNos">
             <h2>DISEÑOS</h2>
             <div>
+                <div class="orden">
+
+                </div>
                 <div class="filtros">
-                    
+                    <aside>
+                        <div class="talla">
+
+                        </div>
+                        <div class="color">
+
+                        </div>
+                        <button>Aplicar filtro</button>
+                    </aside>
                 </div>
                 <nav>
                     <?php
@@ -51,6 +62,7 @@
             </div>
     </main>
     <?php include 'includes/footer.php'; ?>
+    <script src="./js/carrito.js"></script>
 </body>
 
 </html>

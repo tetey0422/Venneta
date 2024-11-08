@@ -9,8 +9,15 @@
         </div>
         <div class="hp2">
             <a href="./login.php" aria-label="Perfil de usuario"><img src="./img/image_2.png" alt="usuario"></a>
-            <a href="#carrito" aria-label="Carrito de compras"><img src="./img/image.png"
-                    alt="carrito de compras"></a>
+            <button id="carrito-btn">
+                <img src="./img/image.png" alt="carrito de compras">
+            </button>
+            <div id="carrito">
+                <h3>Tu carrito</h3>
+                <button></button>
+            </div>
         </div>
     </nav>
 </header>
+
+<script nonce="randomString" src="./js/carrito.js"></script>
