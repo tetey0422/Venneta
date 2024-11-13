@@ -33,7 +33,7 @@
                     // Salida de cada fila
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="diseNo">';
-                        echo '<a href="#CAMISA">';
+                        echo '<a href="anadir.php?nombre=' . urlencode($row["cNombre"]) . '&imagen=' . urlencode($row["cImagen"]) . '&precio=' . urlencode($row["nPrecio"]) . '">';
                         echo '<img src="' . $row["cImagen"] . '" alt="' . $row["cNombre"] . '">';
                         echo '<h3>' . $row["cNombre"] . '</h3>';
                         echo '<p>Precio: $' . number_format($row["nPrecio"], 0, '.', ',') . '</p>'; // Formato de precio

@@ -18,48 +18,77 @@
     <?php include 'includes/header.php'; ?>
     <?php include 'includes/config.php'; ?>
     <main>
-        <div id="diseNos" class="diseNos">
-            <h2>DISEÑOS</h2>
-            <div>
-                <div class="orden">
-
-                </div>
-                <div class="filtros">
-                    <aside>
-                        <div class="talla">
-
-                        </div>
-                        <div class="color">
-
-                        </div>
-                        <button>Aplicar filtro</button>
-                    </aside>
-                </div>
-                <nav>
+        <div class="filtros">
+            <form method="GET" action="diseno.php">
+                <!-- Filtro de Talla -->
+                <label for="talla">Talla:</label>
+                <select id="talla" name="talla">
+                    <option value="">Todas</option>
                     <?php
-                    // Consulta para obtener los productos
-                    $sql = "SELECT cNombre, cImagen, nPrecio FROM TProducto";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        // Salida de cada fila
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<div class="diseNo">';
-                            echo '<a href="#CAMISA">';
-                            echo '<img src="' . $row["cImagen"] . '" alt="' . $row["cNombre"] . '">';
-                            echo '<h3>' . $row["cNombre"] . '</h3>';
-                            echo '<p>Precio: $' . number_format($row["nPrecio"], 0, '.', ',') . '</p>'; // Formato de precio
-                            echo '</a>';
-                            echo '</div>';
+                    $sql_tallas = "SELECT DISTINCT cTalla FROM TTalla";
+                    $result_tallas = $conn->query($sql_tallas);
+                    if ($result_tallas->num_rows > 0) {
+                        while ($row_talla = $result_tallas->fetch_assoc()) {
+                            echo '<option value="' . $row_talla['cTalla'] . '">' . $row_talla['cTalla'] . '</option>';
                         }
-                    } else {
-                        echo "0 resultados";
                     }
-
-                    $conn->close(); // Cerrar conexión
                     ?>
-                </nav>
-            </div>
+                </select>
+
+                <!-- Filtro de Color -->
+                <label for="color">Color:</label>
+                <select id="color" name="color">
+                    <option value="">Todos</option>
+                    <?php
+                    $sql_colores = "SELECT DISTINCT cColor FROM TColor";
+                    $result_colores = $conn->query($sql_colores);
+                    if ($result_colores->num_rows > 0) {
+                        while ($row_color = $result_colores->fetch_assoc()) {
+                            echo '<option value="' . $row_color['cColor'] . '">' . $row_color['cColor'] . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <div class="productos">
+            <?php
+            $filtro_talla = isset($_GET['talla']) ? $_GET['talla'] : '';
+            $filtro_color = isset($_GET['color']) ? $_GET['color'] : '';
+
+            $sql_productos = "SELECT p.cNombre, p.cImagen, p.nPrecio, p.cDescripcion 
+                              FROM TProducto p 
+                              JOIN TTalla_Producto tp ON p.nProductoID = tp.nProductoID 
+                              JOIN TColor_Producto cp ON p.nProductoID = cp.nProductoID 
+                              WHERE 1=1";
+
+            if ($filtro_talla != '') {
+                $sql_productos .= " AND tp.nTallaID = (SELECT nTallaID FROM TTalla WHERE cTalla = '$filtro_talla')";
+            }
+
+            if ($filtro_color != '') {
+                $sql_productos .= " AND cp.nColorID = (SELECT nColorID FROM TColor WHERE cColor = '$filtro_color')";
+            }
+
+            $result_productos = $conn->query($sql_productos);
+
+            if ($result_productos->num_rows > 0) {
+                while ($row_producto = $result_productos->fetch_assoc()) {
+                    echo '<div class="producto">';
+                    echo '<img src="' . $row_producto['cImagen'] . '" alt="' . $row_producto['cNombre'] . '">';
+                    echo '<h3>' . $row_producto['cNombre'] . '</h3>';
+                    echo '<p>' . $row_producto['cDescripcion'] . '</p>';
+                    echo '<p>Precio: $' . number_format($row_producto['nPrecio'], 0, '.', ',') . '</p>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No se encontraron productos con los filtros seleccionados.</p>';
+            }
+            ?>
+        </div>
     </main>
     <?php include 'includes/footer.php'; ?>
     <script src="./js/carrito.js"></script>
