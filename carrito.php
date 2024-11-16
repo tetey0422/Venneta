@@ -9,7 +9,7 @@
     <meta name="author" content="Tienda de Ropa Venneta">
     <title>Venneta - Carrito</title>
     <link rel="icon" type="image/jpg" href="./img/venneta_logo.png">
-    <link rel="stylesheet" href="./css/diseno.css">
+    <link rel="stylesheet" href="./css/carrito.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap">
 </head>
