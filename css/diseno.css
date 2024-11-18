@@ -12,48 +12,162 @@
 body {
     display: flex;
     flex-direction: column;
-    min-width: 100vh;
+    min-height: 100vh;
     font-family: var(--fuente-principal);
-
-    main {
-        flex: 1;
-        background-color: white;
-        margin-top: 4%;
-
-        a:hover {
-            color: #665a69;
-        }
-    }
-
 }
 
-.diseNos {
+main {
+    flex: 1;
+    background-color: white;
+    margin-top: 4%;
+}
+
+main a:hover {
+    color: #665a69;
+}
+
+/* Contenedor principal que contiene filtros y productos */
+.contenedor-principal {
     display: flex;
-    align-items: center;
     gap: 2rem;
-    margin: 1rem;
-}
-
-.diseNos nav {
-    display: flex;
+    margin: 2rem;
     flex-direction: row;
-    gap: 2rem;
-    align-items: center;
 }
 
-.diseNos a {
+/* Estilos para la sección de filtros */
+.filtros {
+    width: 200px;
+    min-width: 200px;
+    padding: 1.5rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.filtros form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filtro-grupo label {
+    font-family: var(--fuente-fuerte);
+    font-size: 1rem;
+    color: #333;
+    letter-spacing: 0.05em;
+}
+
+.filtros select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: var(--fuente-principal);
+    background-color: white;
+    cursor: pointer;
+}
+
+.filtros select:hover {
+    border-color: #999;
+}
+
+.filtros button {
+    padding: 0.75rem 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--fuente-principal);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s;
+}
+
+.filtros button:hover {
+    background-color: #555;
+}
+
+/* Estilos para la cuadrícula de productos */
+.diseNos {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.diseNo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
 }
 
-.diseNo a img {
-    width: 80%;
+.diseNo:hover {
+    transform: translateY(-5px);
+}
+
+.diseNo a {
+    text-decoration: none;
+    color: #333;
+    width: 100%;
+}
+
+.diseNo img {
+    width: 100%;
+    height: auto;
     aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
-.diseNos h2 {
-    text-align: start;
-    height: 2rem;
+.diseNo:hover img {
+    transform: scale(1.02);
 }
+
+.diseNo h3 {
+    margin-top: 1rem;
+    font-family: var(--fuente-principal);
+    font-size: 1.1rem;
+}
+
+.diseNo p {
+    color: #666;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Mensaje cuando no hay resultados */
+.no-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Responsive 
+@media (max-width: 768px) {
+    .contenedor-principal {
+        flex-direction: column;
+        margin: 1rem;
+    }
+
+    .filtros {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .diseNos {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}*/
