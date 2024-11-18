@@ -1,38 +1,24 @@
-// Crear archivo: js/smooth-scroll.js
+// js/smooth-scroll.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener todos los enlaces internos que comienzan con #
-    const internalLinks = document.querySelectorAll('a[href^="#"]');
+    // Obtener todos los enlaces con la clase scroll-link
+    const scrollLinks = document.querySelectorAll('.scroll-link');
     
-    internalLinks.forEach(link => {
+    scrollLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Prevenir el comportamiento predeterminado del enlace
-            e.preventDefault();
-            
-            // Obtener el ID del elemento objetivo desde el href
-            const targetId = this.getAttribute('href');
-            
-            // Verificar si estamos en index.php
-            const isIndexPage = window.location.pathname.endsWith('index.php') || 
-                              window.location.pathname.endsWith('/');
-            
-            if (isIndexPage) {
-                // Si estamos en index.php, hacer scroll suave
-                if (targetId === '#inicio') {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
+            // Solo prevenir el comportamiento predeterminado si estamos en index.php
+            if (window.location.pathname.endsWith('http://localhost/venneta/index.php') || 
+                window.location.pathname.endsWith('http://localhost/venneta/')) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                } else {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
                 }
-            } else {
-                // Si no estamos en index.php, redirigir a index.php con el hash
-                window.location.href = 'index.php' + targetId;
             }
         });
     });

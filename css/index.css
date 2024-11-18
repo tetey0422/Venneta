@@ -46,8 +46,7 @@ main a:hover {
 }
 
 .diseNos h2 {
-    font-family: var(--fuente-fuerte);
-    color: #333;
+    font-family: var(--fuente-principal);
     letter-spacing: 0.05em;
 }
 
