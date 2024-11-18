@@ -29,7 +29,6 @@ body {
 
 .diseNos {
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 2rem;
     margin: 1rem;

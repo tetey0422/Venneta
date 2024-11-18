@@ -18,18 +18,20 @@
     <?php include 'includes/header.php'; ?>
     <?php include 'includes/config.php'; ?>
     <main>
-        <div class="filtros">
+    <div class="filtros">
             <form method="GET" action="diseno.php">
                 <!-- Filtro de Talla -->
                 <label for="talla">Talla:</label>
                 <select id="talla" name="talla">
                     <option value="">Todas</option>
                     <?php
+                    $talla_seleccionada = isset($_GET['talla']) ? $_GET['talla'] : '';
                     $sql_tallas = "SELECT DISTINCT cTalla FROM TTalla";
                     $result_tallas = $conn->query($sql_tallas);
                     if ($result_tallas->num_rows > 0) {
                         while ($row_talla = $result_tallas->fetch_assoc()) {
-                            echo '<option value="' . $row_talla['cTalla'] . '">' . $row_talla['cTalla'] . '</option>';
+                            $selected = ($talla_seleccionada === $row_talla['cTalla']) ? 'selected' : '';
+                            echo '<option value="' . $row_talla['cTalla'] . '" ' . $selected . '>' . $row_talla['cTalla'] . '</option>';
                         }
                     }
                     ?>
@@ -40,11 +42,13 @@
                 <select id="color" name="color">
                     <option value="">Todos</option>
                     <?php
+                    $color_seleccionado = isset($_GET['color']) ? $_GET['color'] : '';
                     $sql_colores = "SELECT DISTINCT cColor FROM TColor";
                     $result_colores = $conn->query($sql_colores);
                     if ($result_colores->num_rows > 0) {
                         while ($row_color = $result_colores->fetch_assoc()) {
-                            echo '<option value="' . $row_color['cColor'] . '">' . $row_color['cColor'] . '</option>';
+                            $selected = ($color_seleccionado === $row_color['cColor']) ? 'selected' : '';
+                            echo '<option value="' . $row_color['cColor'] . '" ' . $selected . '>' . $row_color['cColor'] . '</option>';
                         }
                     }
                     ?>
@@ -54,39 +58,70 @@
             </form>
         </div>
 
-        <div class="productos">
-            <?php
-            $filtro_talla = isset($_GET['talla']) ? $_GET['talla'] : '';
-            $filtro_color = isset($_GET['color']) ? $_GET['color'] : '';
+        <div class="diseNos">
+        <?php
+            // Verificar si hay filtros aplicados
+            $talla_filtro = !empty($_GET['talla']);
+            $color_filtro = !empty($_GET['color']);
 
-            $sql_productos = "SELECT p.cNombre, p.cImagen, p.nPrecio, p.cDescripcion 
-                              FROM TProducto p 
-                              JOIN TTalla_Producto tp ON p.nProductoID = tp.nProductoID 
-                              JOIN TColor_Producto cp ON p.nProductoID = cp.nProductoID 
-                              WHERE 1=1";
+            if ($talla_filtro || $color_filtro) {
+                // Consulta con filtros
+                $sql = "SELECT DISTINCT p.nProductoID, p.cNombre, tcp.cImagen, p.nPrecio 
+                        FROM TProducto p
+                        JOIN TTalla_Color_Producto tcp ON p.nProductoID = tcp.nProductoID
+                        JOIN TTalla t ON tcp.nTallaID = t.nTallaID
+                        JOIN TColor c ON tcp.nColorID = c.nColorID
+                        WHERE tcp.nCantidad > 0";
 
-            if ($filtro_talla != '') {
-                $sql_productos .= " AND tp.nTallaID = (SELECT nTallaID FROM TTalla WHERE cTalla = '$filtro_talla')";
+                $params = array();
+                $types = "";
+
+                if ($talla_filtro) {
+                    $sql .= " AND t.cTalla = ?";
+                    $params[] = $_GET['talla'];
+                    $types .= "s";
+                }
+                if ($color_filtro) {
+                    $sql .= " AND c.cColor = ?";
+                    $params[] = $_GET['color'];
+                    $types .= "s";
+                }
+            } else {
+                // Consulta sin filtros - muestra solo una imagen por producto
+                $sql = "SELECT DISTINCT p.nProductoID, p.cNombre, p.cImagen, p.nPrecio 
+                        FROM TProducto p
+                        WHERE p.nStock > 0";
             }
 
-            if ($filtro_color != '') {
-                $sql_productos .= " AND cp.nColorID = (SELECT nColorID FROM TColor WHERE cColor = '$filtro_color')";
+            // Agrupar por producto
+            $sql .= " GROUP BY p.nProductoID";
+
+            // Preparar y ejecutar la consulta
+            $stmt = $conn->prepare($sql);
+            
+            if (!empty($params)) {
+                $stmt->bind_param($types, ...$params);
             }
+            
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            $result_productos = $conn->query($sql_productos);
-
-            if ($result_productos->num_rows > 0) {
-                while ($row_producto = $result_productos->fetch_assoc()) {
-                    echo '<div class="producto">';
-                    echo '<img src="' . $row_producto['cImagen'] . '" alt="' . $row_producto['cNombre'] . '">';
-                    echo '<h3>' . $row_producto['cNombre'] . '</h3>';
-                    echo '<p>' . $row_producto['cDescripcion'] . '</p>';
-                    echo '<p>Precio: $' . number_format($row_producto['nPrecio'], 0, '.', ',') . '</p>';
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="diseNo">';
+                    echo '<a href="anadir.php?nombre=' . urlencode($row["cNombre"]) . '&imagen=' . urlencode($row["cImagen"]) . '&precio=' . urlencode($row["nPrecio"]) . '">';
+                    echo '<img src="' . $row["cImagen"] . '" alt="' . $row["cNombre"] . '">';
+                    echo '<h3>' . $row["cNombre"] . '</h3>';
+                    echo '<p>Precio: $' . number_format($row["nPrecio"], 0, '.', ',') . '</p>';
+                    echo '</a>';
                     echo '</div>';
                 }
             } else {
-                echo '<p>No se encontraron productos con los filtros seleccionados.</p>';
+                echo '<p class="no-resultados">No se encontraron productos con los filtros seleccionados.</p>';
             }
+
+            $stmt->close();
+            $conn->close();
             ?>
         </div>
     </main>
