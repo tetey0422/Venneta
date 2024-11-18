@@ -12,22 +12,20 @@
 body {
     display: flex;
     flex-direction: column;
-    min-width: 100vh;
+    min-height: 100vh;
     font-family: var(--fuente-principal);
+}
 
-    main {
-        flex: 1;
-        background-color: white;
+main {
+    flex: 1;
+    background-color: white;
+}
 
-        a:hover {
-            color: #665a69;
-        }
-    }
-
+main a:hover {
+    color: #665a69;
 }
 
 /* main */
-
 .inicio {
     background-color: #DBFF73;
     width: 100%;
@@ -47,43 +45,81 @@ body {
     margin: 2rem;
 }
 
-.diseNos nav {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    align-items: center;
+.diseNos h2 {
+    font-family: var(--fuente-fuerte);
+    color: #333;
+    letter-spacing: 0.05em;
 }
 
-.diseNos {
+.diseNos nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.diseNo {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     align-items: center;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s ease;
 }
 
-.diseNos a {
+.diseNo:hover {
+    transform: translateY(-5px);
+}
+
+.diseNo a {
+    text-decoration: none;
+    color: #333;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
 }
 
-.diseNo a img {
-    width: 80%;
+.diseNo img {
+    width: 100%;
+    height: auto;
     aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.diseNo:hover img {
+    transform: scale(1.02);
+}
+
+.diseNo h3 {
+    margin-top: 1rem;
+    font-family: var(--fuente-principal);
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.diseNo p {
+    color: #666;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
 }
 
 main button {
     background-color: #DBFF73;
     border-radius: 50px;
     border: none;
-    padding: 5px 20px;
+    padding: 0.75rem 1.5rem;
     font-family: var(--fuente-principal);
     font-size: 1rem;
     cursor: pointer;
-    color: black;
-    width: 9.375rem;
-    height: 2.5rem;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s;
 }
 
 main button:hover {
@@ -96,8 +132,4 @@ main button:active {
     background-color: #ffffff;
     color: #7B7B7B;
     transition: 0s;
-}
-
-.diseNos h3 {
-    text-align: start;
 }

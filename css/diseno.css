@@ -58,7 +58,7 @@ main a:hover {
 
 .filtro-grupo label {
     font-family: var(--fuente-fuerte);
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #333;
     letter-spacing: 0.05em;
 }
@@ -66,6 +66,7 @@ main a:hover {
 .filtros select {
     width: 100%;
     padding: 0.5rem;
+    font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-family: var(--fuente-principal);
@@ -78,20 +79,29 @@ main a:hover {
 }
 
 .filtros button {
-    padding: 0.75rem 1rem;
-    background-color: #333;
-    color: white;
+    background-color: #DBFF73;
+    border-radius: 50px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 0.75rem 1rem;
     font-family: var(--fuente-principal);
+    font-size: 1rem;
+    cursor: pointer;
+    color: #333;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     transition: background-color 0.3s;
 }
 
 .filtros button:hover {
-    background-color: #555;
+    background-color: #657536;
+    color: white;
+    transition: 0s;
+}
+
+.filtros button:active {
+    background-color: #ffffff;
+    color: #7B7B7B;
+    transition: 0s;
 }
 
 /* Estilos para la cuadrícula de productos */
