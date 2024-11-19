@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div>Talla: ${item.talla} | Color: ${item.color}</div>
                     </div>
                     <div style="margin-left: auto; display: flex; align-items: center;">
-                        <button onclick="modificarCantidad(${index}, -1)" style="background: none; border: none; padding: 0 5px;">-</button>
+                        <button onclick="modificarCantidad(${index}, -1)" style="background: none; border: none; padding: 0 5px; color: black;">-</button>
                         <span>${item.cantidad}</span>
-                        <button onclick="modificarCantidad(${index}, 1)" style="background: none; border: none; padding: 0 5px;">+</button>
+                        <button onclick="modificarCantidad(${index}, 1)" style="background: none; border: none; padding: 0 5px; color: black;">+</button>
                         <button onclick="eliminarDelCarrito(${index})" style="background: none; border: none; color: red; margin-left: 10px;">🗑️</button>
                     </div>
                 </div>
