@@ -45,7 +45,7 @@
                     productoElement.className = 'carrito-item';
                     productoElement.innerHTML = `
                         <div style="display: flex; align-items: center;">
-                            <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: 50px; margin-right: 10px; object-fit: cover;">
+                            <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 150px; height: 150px; margin-right: 20px; object-fit: cover;">
                             <div>
                                 <div><strong>${producto.nombre}</strong></div>
                                 <div>${formatearPrecio(producto.precio)}</div>
