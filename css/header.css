@@ -108,16 +108,3 @@ header nav {
 .hidden {
     display: none;
 }
-/* @media (max-width: 1023px) {
-
-    header nav {
-        gap: 1rem 15rem;
-    }
-
-}
-
-@media (max-width: 767px) {
-
-    
-
-} */

@@ -163,20 +163,3 @@ main a:hover {
     color: #666;
     font-size: 1.1rem;
 }
-
-/* Responsive 
-@media (max-width: 768px) {
-    .contenedor-principal {
-        flex-direction: column;
-        margin: 1rem;
-    }
-
-    .filtros {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-
-    .diseNos {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-}*/
