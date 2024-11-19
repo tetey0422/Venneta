@@ -17,11 +17,12 @@ $is_logged_in = isset($_SESSION['user_id']);
             <?php endif; ?>
             <button id="carrito-btn">
                 <img src="./img/image.png" alt="carrito de compras">
+                <span id="contador-carrito">0</span>
             </button>
             <div id="carrito">
                 <h3>Tu carrito</h3>
-                <button></button>
             </div>
+        </div>
         </div>
     </nav>
 </header>

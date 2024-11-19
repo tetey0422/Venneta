@@ -108,3 +108,83 @@ header nav {
 .hidden {
     display: none;
 }
+
+/* Añadir estos estilos en header.css */
+#carrito-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+#carrito {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    min-width: 300px;
+    max-width: 400px;
+    z-index: 1000;
+}
+
+#carrito {
+    display: none;
+}
+
+#carrito.show {
+    display: block;
+}
+
+.carrito-item {
+    transition: background-color 0.3s;
+}
+
+.carrito-item:hover {
+    background-color: #f5f5f5;
+}
+
+#carrito button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#carrito button:hover {
+    background-color: #0056b3;
+}
+
+#contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;   
+}
+
+h3 {
+    color: black;
+    margin: 0 0 1rem 0;
+}
+
+.carrito-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.modificadorCantidad {
+    color: black;
+}

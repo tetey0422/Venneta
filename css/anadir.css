@@ -129,3 +129,19 @@ main {
     max-width: 100%;
     border-radius: 8px;
 }
+
+.mensaje-error {
+    background-color: var(--color-error);
+    color: rgb(255, 0, 0);
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mensaje-error.mostrar {
+    opacity: 1;
+}

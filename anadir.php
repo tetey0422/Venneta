@@ -21,7 +21,6 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    // Debugging parameter retrieval
     $nombre = isset($_GET['nombre']) ? urldecode($_GET['nombre']) : '';
     $imagen = isset($_GET['imagen']) ? urldecode($_GET['imagen']) : '';
     $precio = isset($_GET['precio']) ? urldecode($_GET['precio']) : '';
@@ -120,56 +119,89 @@
                 var precio = <?php echo $precio; ?>;
                 var talla = document.getElementById('talla').value;
                 var color = document.getElementById('color').value;
-                var cantidad = document.getElementById('cantidad').value;
+                var cantidad = parseInt(document.getElementById('cantidad').value);
 
-                // Validar selecciones
+                // Eliminar mensajes previos si existen
+                var mensajesPrevios = document.querySelectorAll('.mensaje-error');
+                mensajesPrevios.forEach(mensaje => mensaje.remove());
+
+                // Elemento donde mostrarás el mensaje
+                var mensajeElemento = document.createElement('div');
+                mensajeElemento.classList.add('mensaje-error');
+
+                // Contenedor donde insertarás el mensaje (justo antes del botón)
+                var contenedorMensaje = document.querySelector('.todo');
+                var botonAnadir = document.querySelector('.todo button');
+
+                // Validar selecciones con mensaje personalizado
                 if (!talla) {
-                    alert('Por favor, seleccione una talla');
+                    mensajeElemento.textContent = 'Por favor, selecciona una talla';
+                    contenedorMensaje.insertBefore(mensajeElemento, botonAnadir);
+
+                    // Agregar clase para mostrar con transición
+                    setTimeout(() => {
+                        mensajeElemento.classList.add('mostrar');
+                    }, 10);
+
+                    // Borrar mensaje después de 3 segundos
+                    setTimeout(() => {
+                        mensajeElemento.classList.remove('mostrar');
+                        setTimeout(() => {
+                            if (mensajeElemento.parentNode) {
+                                mensajeElemento.parentNode.removeChild(mensajeElemento);
+                            }
+                        }, 300);
+                    }, 3000);
+
                     return;
                 }
+
                 if (!color) {
-                    alert('Por favor, seleccione un color');
+                    mensajeElemento.textContent = 'Por favor, selecciona un color';
+                    contenedorMensaje.insertBefore(mensajeElemento, botonAnadir);
+
+                    // Agregar clase para mostrar con transición
+                    setTimeout(() => {
+                        mensajeElemento.classList.add('mostrar');
+                    }, 10);
+
+                    // Borrar mensaje después de 3 segundos
+                    setTimeout(() => {
+                        mensajeElemento.classList.remove('mostrar');
+                        setTimeout(() => {
+                            if (mensajeElemento.parentNode) {
+                                mensajeElemento.parentNode.removeChild(mensajeElemento);
+                            }
+                        }, 300);
+                    }, 3000);
+
                     return;
                 }
 
-                // Crear objeto de producto
-                var producto = {
-                    nombre: nombre,
-                    imagen: imagen,
-                    precio: precio,
-                    talla: talla,
-                    color: color,
-                    cantidad: parseInt(cantidad)
-                };
-
-                // Obtener carrito actual de localStorage
                 var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-                // Verificar si el producto ya existe en el carrito
-                var productoExistente = carrito.find(p =>
-                    p.nombre === producto.nombre &&
-                    p.talla === producto.talla &&
-                    p.color === producto.color
+                var productoExistenteIndex = carrito.findIndex(p =>
+                    p.nombre === nombre &&
+                    p.talla === talla &&
+                    p.color === color
                 );
 
-                if (productoExistente) {
-                    // Si el producto existe, incrementar cantidad
-                    productoExistente.cantidad += producto.cantidad;
+                if (productoExistenteIndex !== -1) {
+                    carrito[productoExistenteIndex].cantidad += cantidad;
                 } else {
-                    // Si no existe, agregar nuevo producto
+                    var producto = {
+                        nombre: nombre,
+                        imagen: imagen,
+                        precio: precio,
+                        talla: talla,
+                        color: color,
+                        cantidad: cantidad
+                    };
                     carrito.push(producto);
                 }
 
-                // Guardar carrito actualizado en localStorage
                 localStorage.setItem('carrito', JSON.stringify(carrito));
 
-                // Mostrar mensaje de confirmación
-                alert('Producto añadido al carrito: ' + nombre +
-                    ', Talla: ' + talla +
-                    ', Color: ' + color +
-                    ', Cantidad: ' + cantidad);
-
-                // Actualizar contador de carrito en el header
                 actualizarContadorCarrito();
             }
 
