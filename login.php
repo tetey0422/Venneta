@@ -4,13 +4,20 @@ $error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
-    $stmt = $pdo->prepare("SELECT nUsuarioID, cNombre_Usuario, cContraseña FROM TUsuario WHERE cEmail = :usuario OR cNombre_Usuario = :usuario");
-    $stmt->execute(['usuario' => $usuario]);
+
+    // Corrected prepared statement using ? placeholders
+    $stmt = $pdo->prepare("SELECT u.nUsuarioID, u.cNombre_Usuario, u.cContraseña, c.cNombre 
+                            FROM TUsuario u
+                            LEFT JOIN TCliente c ON u.nUsuarioID = c.nUsuarioID
+                            WHERE u.cEmail = ? OR u.cNombre_Usuario = ?");
+    $stmt->execute([$usuario, $usuario]);
     $user = $stmt->fetch();
+
     if ($user && password_verify($contrasena, $user['cContraseña'])) {
         session_start();
         $_SESSION['user_id'] = $user['nUsuarioID'];
         $_SESSION['username'] = $user['cNombre_Usuario'];
+        $_SESSION['nombre'] = $user['cNombre'];
         header("Location: index.php");
         exit();
     } else {
@@ -20,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Venneta - Iniciar Sesión</title>
     <link rel="stylesheet" href="./css/login.css">
 </head>
+
 <body>
     <main class="login-container">
         <a href="index.php">
@@ -51,18 +60,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
     <script>
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordInput = document.getElementById('password');
-        const toggleText = this;
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleText = this;
 
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            toggleText.textContent = 'Ocultar'; // Cambia el texto a "Ocultar"
-        } else {
-            passwordInput.type = 'password';
-            toggleText.textContent = 'Mostrar'; // Cambia el texto a "Mostrar"
-        }
-    });
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleText.textContent = 'Ocultar'; // Cambia el texto a "Ocultar"
+            } else {
+                passwordInput.type = 'password';
+                toggleText.textContent = 'Mostrar'; // Cambia el texto a "Mostrar"
+            }
+        });
     </script>
 </body>
+
 </html>

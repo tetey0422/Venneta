@@ -18,32 +18,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($error)) {
-        require_once 'db_connect.php'; 
+        require_once 'db_connect.php';
 
-        $stmt = $pdo->prepare("SELECT * FROM TUsuario WHERE cEmail = :email OR cNombre_Usuario = :usuario");
-        $stmt->execute(['email' => $email, 'usuario' => $usuario]);
-        if ($stmt->rowCount() > 0) {
-            $error = "El correo electrónico o el nombre de usuario ya están en uso.";
-        } else {
-            $hashed_password = password_hash($contrasena, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("INSERT INTO TUsuario (cNombre, cApellido, cDocumento, cEmail, cTelefono, cNombre_Usuario, cContraseña) VALUES (:nombre, :apellido, :documento, :email, :telefono, :usuario, :contrasena)");
+        try {
+            // Start a transaction
+            $pdo->beginTransaction();
+
+            // Check if email or username already exists
+            $stmt = $pdo->prepare("SELECT * FROM TUsuario WHERE cEmail = :email OR cNombre_Usuario = :usuario");
+            $stmt->execute(['email' => $email, 'usuario' => $usuario]);
+            if ($stmt->rowCount() > 0) {
+                $error = "El correo electrónico o el nombre de usuario ya están en uso.";
+                throw new Exception($error);
+            }
+
+            // Insert into TUsuario first
+            $stmt = $pdo->prepare("INSERT INTO TUsuario (cEmail, cNombre_Usuario, cContraseña) VALUES (:email, :usuario, :contrasena)");
+            $stmt->execute([
+                'email' => $email,
+                'usuario' => $usuario,
+                'contrasena' => password_hash($contrasena, PASSWORD_DEFAULT)
+            ]);
+
+            // Get the last inserted user ID
+            $usuarioID = $pdo->lastInsertId();
+
+            // Insert into TCliente
+            $stmt = $pdo->prepare("INSERT INTO TCliente (cNombre, cApellido, cDocumento, cEmail, cTelefono, nUsuarioID) VALUES (:nombre, :apellido, :documento, :email, :telefono, :usuarioID)");
             $stmt->execute([
                 'nombre' => $nombre,
                 'apellido' => $apellido,
                 'documento' => $documento,
                 'email' => $email,
                 'telefono' => $telefono,
-                'usuario' => $usuario,
-                'contrasena' => $hashed_password
+                'usuarioID' => $usuarioID
             ]);
+
+            // Commit the transaction
+            $pdo->commit();
+
             header("Location: login.php");
             exit();
+        } catch (Exception $e) {
+            // Rollback the transaction in case of error
+            $pdo->rollBack();
+            $error = $e->getMessage();
         }
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <title>Venneta - Crear Cuenta</title>
     <meta charset="UTF-8">
@@ -54,16 +80,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/jpg" href="./img/venneta_logo.png">
     <link rel="stylesheet" href="./css/crear-cuenta.css">
 </head>
+
 <body>
     <main class="login-container">
         <a href="index.php">
             <img src="img/logo1.png" alt="Venneta">
         </a>
-        
+
         <?php if (!empty($error)): ?>
             <p class="error"><?php echo $error; ?></p>
         <?php endif; ?>
-        
+
         <form action="crear-cuenta.php" method="post">
             <input type="text" name="nombre" placeholder="NOMBRE" required>
             <input type="text" name="apellido" placeholder="APELLIDO" required>
@@ -75,8 +102,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="confirmar_contrasena" placeholder="CONFIRMAR CONTRASEÑA" required>
             <button type="submit">Crear Cuenta</button>
         </form>
-        
+
         <p>¿Ya tienes una cuenta? <a href="login.php">Inicia sesión aquí</a></p>
     </main>
 </body>
+
 </html>

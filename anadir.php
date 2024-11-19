@@ -18,7 +18,7 @@
     <?php include 'includes/header.php'; ?>
     <?php include 'includes/config.php'; ?>
     <main>
-    <?php
+        <?php
         if (isset($_GET['nombre']) && isset($_GET['imagen']) && isset($_GET['precio']) && isset($_GET['descripcion'])) {
             $nombre = urldecode($_GET['nombre']);
             $imagen = urldecode($_GET['imagen']);
@@ -42,7 +42,7 @@
             <h3><?php echo $nombre; ?></h3>
             <p><?php echo $descripcion; ?></p>
             <p>Precio: $<?php echo number_format($precio, 0, '.', ','); ?></p>
-            
+
             <!-- Mostrar las tallas disponibles -->
             <label for="talla">Talla:</label>
             <select id="talla" name="talla">

@@ -1,3 +1,7 @@
+<?php
+session_start();
+$is_logged_in = isset($_SESSION['user_id']);
+?>
 <header id="inicio">
     <link rel="stylesheet" href="./css/header.css">
     <nav>
@@ -8,7 +12,9 @@
             <a href="#contacto">contacto</a>
         </div>
         <div class="hp2">
-            <a href="./login.php" aria-label="Perfil de usuario"><img src="./img/image_2.png" alt="usuario"></a>
+            <?php if (!$is_logged_in): ?>
+                <a href="./login.php" aria-label="Perfil de usuario"><img src="./img/image_2.png" alt="usuario"></a>
+            <?php endif; ?>
             <button id="carrito-btn">
                 <img src="./img/image.png" alt="carrito de compras">
             </button>

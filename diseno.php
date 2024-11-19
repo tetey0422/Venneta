@@ -100,11 +100,11 @@
 
                 // Preparar y ejecutar la consulta
                 $stmt = $conn->prepare($sql);
-                
+
                 if (!empty($params)) {
                     $stmt->bind_param($types, ...$params);
                 }
-                
+
                 $stmt->execute();
                 $result = $stmt->get_result();
 
