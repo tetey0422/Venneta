@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem('carrito', JSON.stringify(carrito));
             actualizarCarritoUI();
             actualizarContadorCarrito();
+            localStorage.setItem('carrito', JSON.stringify(carrito));
         } else if (nuevaCantidad === 0) {
             // Si la cantidad llega a 0, eliminar el producto
             eliminarDelCarrito(index);
@@ -96,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('carrito', JSON.stringify(carrito));
         actualizarCarritoUI();
         actualizarContadorCarrito();
+        localStorage.setItem('carrito', JSON.stringify(carrito));
     };
 
     // Event listener para el botón del carrito
