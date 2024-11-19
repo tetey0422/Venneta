@@ -51,7 +51,7 @@
         </div>
     </main>
     <?php include 'includes/footer.php'; ?>
-    <script src="./js/smooth-scroll.js"></script>
+    <script src="./js/scroll.js"></script>
 </body>
 
 </html>

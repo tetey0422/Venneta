@@ -1,4 +1,4 @@
-// js/smooth-scroll.js
+// js/scroll.js
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener todos los enlaces con la clase scroll-link
     const scrollLinks = document.querySelectorAll('.scroll-link');

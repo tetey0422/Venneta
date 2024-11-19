@@ -19,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html lang="es-CO">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,15 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="keywords" content="ropa, tienda de ropa, moda, descuentos, ropa de hombre, ropa de mujer">
     <meta name="author" content="Tienda de Ropa Venneta">
     <link rel="icon" type="image/jpg" href="./img/venneta_logo.png">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap">
     <title>Venneta - Iniciar Sesión</title>
     <link rel="stylesheet" href="./css/login.css">
 </head>
-
 <body>
     <main class="login-container">
-        <a href="./index.php"><img src="img/logo1.png" alt="Venneta"></a>
+        <a href="index.php">
+            <img src="img/logo1.png" alt="Venneta">
+        </a>
         <?php if ($error): ?>
             <p class="error"><?php echo $error; ?></p>
         <?php endif; ?>
@@ -44,28 +43,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="usuario" placeholder="USUARIO O CORREO ELECTRÓNICO" required>
             <div class="password-container">
                 <input type="password" name="contrasena" id="password" placeholder="CONTRASEÑA" required>
-                </button>
+                <span class="toggle-password" id="togglePassword">Mostrar</span>
             </div>
             <button type="submit">INICIAR SESIÓN</button>
         </form>
-        <a href="olvide-contrasena.php" class="forgot-password">¿OLVIDASTE TU CONTRASEÑA?</a>
-        <a href="crear-cuenta.php" class="btn-crear-cuenta">CREAR CUENTA NUEVA</a>
+        <a href="crear-cuenta.php" class="create-account">CREAR CUENTA NUEVA</a>
     </main>
 
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('toggleIcon');
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const toggleText = this;
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.src = 'img/eye-off.svg';
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.src = 'img/eye.svg';
-            }
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleText.textContent = 'Ocultar'; // Cambia el texto a "Ocultar"
+        } else {
+            passwordInput.type = 'password';
+            toggleText.textContent = 'Mostrar'; // Cambia el texto a "Mostrar"
         }
+    });
     </script>
 </body>
-
 </html>
