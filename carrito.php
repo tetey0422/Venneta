@@ -64,7 +64,7 @@
                     <div style="font-weight: bold; margin: 0 0 1rem 0;">
                         Total: ${formatearPrecio(total)}
                     </div>
-                    <button onclick="window.location.href='./checkout.php'">Proceder al Pago</button>
+                    <button onclick="procederAlPago()">Proceder al Pago</button>
                 `;
             };
 
