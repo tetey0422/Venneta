@@ -9,88 +9,181 @@
     <meta name="author" content="Tienda de Ropa Venneta">
     <title>Venneta</title>
     <link rel="icon" type="image/jpg" href="./img/venneta_logo.png">
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/anadir.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap">
 </head>
 
 <body>
     <?php include 'includes/header.php'; ?>
-    <?php include 'includes/config.php'; ?>
+    <?php
+    include 'includes/config.php';
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    // Debugging parameter retrieval
+    $nombre = isset($_GET['nombre']) ? urldecode($_GET['nombre']) : '';
+    $imagen = isset($_GET['imagen']) ? urldecode($_GET['imagen']) : '';
+    $precio = isset($_GET['precio']) ? urldecode($_GET['precio']) : '';
+
+    // Buscar descripción del producto en la base de datos
+    $stmt_producto = $conn->prepare("SELECT cDescripcion FROM TProducto WHERE cNombre = ?");
+    $stmt_producto->bind_param("s", $nombre);
+    $stmt_producto->execute();
+    $result_producto = $stmt_producto->get_result();
+    $descripcion = ($row = $result_producto->fetch_assoc()) ? $row['cDescripcion'] : 'Descripción no disponible';
+
+    // Verificar conexión y parámetros
+    if (empty($nombre) || empty($imagen) || empty($precio)) {
+        echo "Información del producto incompleta.";
+        exit;
+    }
+
+    // Consulta de tallas disponibles
+    $stmt_tallas = $conn->prepare("SELECT DISTINCT t.cTalla 
+        FROM TTalla_Color_Producto tcp
+        JOIN TTalla t ON tcp.nTallaID = t.nTallaID 
+        JOIN TProducto p ON tcp.nProductoID = p.nProductoID 
+        WHERE p.cNombre = ? AND tcp.nCantidad > 0");
+    $stmt_tallas->bind_param("s", $nombre);
+    $stmt_tallas->execute();
+    $result_tallas = $stmt_tallas->get_result();
+
+    // Consulta de colores disponibles
+    $stmt_colores = $conn->prepare("SELECT DISTINCT c.cColor 
+        FROM TTalla_Color_Producto tcp
+        JOIN TColor c ON tcp.nColorID = c.nColorID 
+        JOIN TProducto p ON tcp.nProductoID = p.nProductoID 
+        WHERE p.cNombre = ? AND tcp.nCantidad > 0");
+    $stmt_colores->bind_param("s", $nombre);
+    $stmt_colores->execute();
+    $result_colores = $stmt_colores->get_result();
+    ?>
+
     <main>
-        <?php
-        if (isset($_GET['nombre']) && isset($_GET['imagen']) && isset($_GET['precio']) && isset($_GET['descripcion'])) {
-            $nombre = urldecode($_GET['nombre']);
-            $imagen = urldecode($_GET['imagen']);
-            $precio = urldecode($_GET['precio']);
-            $descripcion = urldecode($_GET['descripcion']);
-
-            // Consulta para obtener las tallas disponibles
-            $sql_tallas = "SELECT cTalla FROM TTalla_Producto tp JOIN TTalla t ON tp.nTallaID = t.nTallaID JOIN TProducto p ON tp.nProductoID = p.nProductoID WHERE p.cNombre = '$nombre'";
-            $result_tallas = $conn->query($sql_tallas);
-
-            // Consulta para obtener los colores disponibles
-            $sql_colores = "SELECT cColor FROM TColor_Producto cp JOIN TColor c ON cp.nColorID = c.nColorID JOIN TProducto p ON cp.nProductoID = p.nProductoID WHERE p.cNombre = '$nombre'";
-            $result_colores = $conn->query($sql_colores);
-        } else {
-            echo "Información del producto no disponible.";
-            exit;
-        }
-        ?>
         <div class="producto">
-            <img src="<?php echo $imagen; ?>" alt="<?php echo $nombre; ?>">
-            <h3><?php echo $nombre; ?></h3>
-            <p><?php echo $descripcion; ?></p>
-            <p>Precio: $<?php echo number_format($precio, 0, '.', ','); ?></p>
+            <div class="img-des">
+                <img src="<?php echo $imagen; ?>" alt="<?php echo $nombre; ?>">
+                <h3>Descripcion</h3>
+                <p><?php echo $descripcion; ?></p>
+            </div>
+            <div class="todo">
+                <h3><?php echo $nombre; ?></h3>
+                <p>Precio: $<?php echo number_format($precio, 0, '.', ','); ?></p>
 
-            <!-- Mostrar las tallas disponibles -->
-            <label for="talla">Talla:</label>
-            <select id="talla" name="talla">
-                <?php
-                if ($result_tallas->num_rows > 0) {
-                    while ($row_talla = $result_tallas->fetch_assoc()) {
-                        echo '<option value="' . $row_talla['cTalla'] . '">' . $row_talla['cTalla'] . '</option>';
+                <!-- Mostrar las tallas disponibles -->
+                <label for="talla">Talla:</label>
+                <select id="talla" name="talla" required>
+                    <option value="">Seleccione una talla</option>
+                    <?php
+                    if ($result_tallas->num_rows > 0) {
+                        while ($row_talla = $result_tallas->fetch_assoc()) {
+                            echo '<option value="' . $row_talla['cTalla'] . '">' . $row_talla['cTalla'] . '</option>';
+                        }
+                    } else {
+                        echo '<option value="">No hay tallas disponibles</option>';
                     }
-                } else {
-                    echo '<option value="">No disponible</option>';
-                }
-                ?>
-            </select>
+                    ?>
+                </select>
 
-            <!-- Mostrar los colores disponibles -->
-            <label for="color">Color:</label>
-            <select id="color" name="color">
-                <?php
-                if ($result_colores->num_rows > 0) {
-                    while ($row_color = $result_colores->fetch_assoc()) {
-                        echo '<option value="' . $row_color['cColor'] . '">' . $row_color['cColor'] . '</option>';
+                <!-- Mostrar los colores disponibles -->
+                <label for="color">Color:</label>
+                <select id="color" name="color" required>
+                    <option value="">Seleccione un color</option>
+                    <?php
+                    if ($result_colores->num_rows > 0) {
+                        while ($row_color = $result_colores->fetch_assoc()) {
+                            echo '<option value="' . $row_color['cColor'] . '">' . $row_color['cColor'] . '</option>';
+                        }
+                    } else {
+                        echo '<option value="">No hay colores disponibles</option>';
                     }
-                } else {
-                    echo '<option value="">No disponible</option>';
-                }
-                ?>
-            </select>
+                    ?>
+                </select>
 
-            <!-- Seleccionar cantidad -->
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" min="1" value="1">
+                <!-- Seleccionar cantidad -->
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" max="10" value="1" required>
 
-            <!-- Botón para añadir al carrito -->
-            <button onclick="añadirAlCarrito()">Añadir al Carrito</button>
+                <!-- Botón para añadir al carrito -->
+                <button onclick="añadirAlCarrito()">Añadir al Carrito</button>
+
+                <h4>Guia de Talla</h4>
+                <img src="img/guia.jpg" alt="Guía de Talla" class="guia-talla">
+            </div>
         </div>
-
         <script>
             function añadirAlCarrito() {
+                // Obtener valores del producto
+                var nombre = '<?php echo $nombre; ?>';
+                var imagen = '<?php echo $imagen; ?>';
+                var precio = <?php echo $precio; ?>;
                 var talla = document.getElementById('talla').value;
                 var color = document.getElementById('color').value;
                 var cantidad = document.getElementById('cantidad').value;
-                if (talla && color && cantidad > 0) {
-                    // Aquí puedes agregar la lógica para añadir el producto al carrito
-                    alert('Producto añadido al carrito: ' + '<?php echo $nombre; ?>' + ', Talla: ' + talla + ', Color: ' + color + ', Cantidad: ' + cantidad);
+
+                // Validar selecciones
+                if (!talla) {
+                    alert('Por favor, seleccione una talla');
+                    return;
+                }
+                if (!color) {
+                    alert('Por favor, seleccione un color');
+                    return;
+                }
+
+                // Crear objeto de producto
+                var producto = {
+                    nombre: nombre,
+                    imagen: imagen,
+                    precio: precio,
+                    talla: talla,
+                    color: color,
+                    cantidad: parseInt(cantidad)
+                };
+
+                // Obtener carrito actual de localStorage
+                var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+                // Verificar si el producto ya existe en el carrito
+                var productoExistente = carrito.find(p =>
+                    p.nombre === producto.nombre &&
+                    p.talla === producto.talla &&
+                    p.color === producto.color
+                );
+
+                if (productoExistente) {
+                    // Si el producto existe, incrementar cantidad
+                    productoExistente.cantidad += producto.cantidad;
                 } else {
-                    alert('Por favor, selecciona una talla, un color y una cantidad válida.');
+                    // Si no existe, agregar nuevo producto
+                    carrito.push(producto);
+                }
+
+                // Guardar carrito actualizado en localStorage
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+
+                // Mostrar mensaje de confirmación
+                alert('Producto añadido al carrito: ' + nombre +
+                    ', Talla: ' + talla +
+                    ', Color: ' + color +
+                    ', Cantidad: ' + cantidad);
+
+                // Actualizar contador de carrito en el header
+                actualizarContadorCarrito();
+            }
+
+            // Función para actualizar contador de carrito
+            function actualizarContadorCarrito() {
+                var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                var contadorCarrito = document.getElementById('contador-carrito');
+                if (contadorCarrito) {
+                    contadorCarrito.textContent = carrito.length;
                 }
             }
+
+            // Llamar a esta función cuando se carga la página
+            window.onload = actualizarContadorCarrito;
         </script>
     </main>
     <?php include 'includes/footer.php'; ?>
