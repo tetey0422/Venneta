@@ -53,8 +53,10 @@ XAMPP	Servidor local para desarrollo y pruebas.
 ├── crear-cuenta.php     # Página para crear cuenta
 ├── db_connect.php       # Conexión de la base de datos
 ├── diseno.php           # Página de catálogo de productos
+├── Documentacion.pdf           # Documento PDF
 ├── index.php            # Página principal
 ├── login.php            # Página de inicio de sesión 
+├── obtener_usuario.php  # Página para q el sistema sepa cual es el usuario
 └── README.md            # Archivo README del proyecto
 ```
 
