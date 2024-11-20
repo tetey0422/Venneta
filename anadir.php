@@ -69,8 +69,6 @@
             <div class="todo">
                 <h3><?php echo $nombre; ?></h3>
                 <p>Precio: $<?php echo number_format($precio, 0, '.', ','); ?></p>
-
-                <!-- Mostrar las tallas disponibles -->
                 <label for="talla">Talla:</label>
                 <select id="talla" name="talla" required>
                     <option value="">Seleccione una talla</option>
@@ -85,7 +83,6 @@
                     ?>
                 </select>
 
-                <!-- Mostrar los colores disponibles -->
                 <label for="color">Color:</label>
                 <select id="color" name="color" required>
                     <option value="">Seleccione un color</option>
@@ -100,11 +97,9 @@
                     ?>
                 </select>
 
-                <!-- Seleccionar cantidad -->
                 <label for="cantidad">Cantidad:</label>
                 <input type="number" id="cantidad" name="cantidad" min="1" max="10" value="1" required>
 
-                <!-- Botón para añadir al carrito -->
                 <button onclick="añadirAlCarrito()">Añadir al Carrito</button>
 
                 <h4>Guia de Talla</h4>

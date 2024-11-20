@@ -26,7 +26,6 @@ main a:hover {
     color: #665a69;
 }
 
-/* Contenedor principal que contiene filtros y productos */
 .contenedor-principal {
     display: flex;
     gap: 2rem;
@@ -34,7 +33,6 @@ main a:hover {
     flex-direction: row;
 }
 
-/* Estilos para la sección de filtros */
 .filtros {
     width: 200px;
     min-width: 200px;
@@ -103,7 +101,6 @@ main a:hover {
     transition: 0s;
 }
 
-/* Estilos para la cuadrícula de productos */
 .diseNos {
     flex: 1;
     display: grid;
@@ -155,7 +152,6 @@ main a:hover {
     font-size: 0.95rem;
 }
 
-/* Mensaje cuando no hay resultados */
 .no-resultados {
     grid-column: 1 / -1;
     text-align: center;
