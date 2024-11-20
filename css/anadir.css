@@ -84,7 +84,7 @@ main {
     color: #333;
 }
 
-.producto .todo select, 
+.producto .todo select,
 .producto .todo input[type="number"] {
     width: 100%;
     padding: 0.5rem;

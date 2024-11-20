@@ -26,13 +26,10 @@ body {
         a {
             color: white;
         }
-
     }
-
 }
 
 /* header */
-
 header nav {
     display: flex;
     justify-content: space-around;
@@ -68,6 +65,7 @@ header nav {
     0% {
         transform: scale(0);
     }
+
     100% {
         transform: scale(1);
     }
@@ -78,6 +76,7 @@ header nav {
     background: none;
     padding: 0;
     cursor: pointer;
+    position: relative;
 }
 
 #carrito-btn img {
@@ -88,13 +87,18 @@ header nav {
 #carrito {
     display: none;
     position: fixed;
-    right: 10px;
-    top: 50px;
+    right: 0;
+    top: 35px;
     background: white;
     border: 1px solid #ccc;
     padding: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 400px;
 }
 
 #carrito.show {
@@ -102,66 +106,42 @@ header nav {
     animation: scale 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    border:none;
+    border: none;
+}
+
+/* Contenedor para los items del carrito */
+.carrito-items {
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-bottom: 10px;
+    max-height: calc(80vh - 150px);
+    padding-right: 10px;
+}
+
+/* Estilizar el scrollbar */
+.carrito-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.carrito-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.carrito-items::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.carrito-items::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .hidden {
     display: none;
 }
 
-/* Añadir estos estilos en header.css */
-#carrito-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
-
-#carrito {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    min-width: 300px;
-    max-width: 400px;
-    z-index: 1000;
-}
-
-#carrito {
-    display: none;
-}
-
-#carrito.show {
-    display: block;
-}
-
-.carrito-item {
-    transition: background-color 0.3s;
-}
-
-.carrito-item:hover {
-    background-color: #f5f5f5;
-}
-
-#carrito button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-}
-
-#carrito button:hover {
-    background-color: #0056b3;
-}
-
+/* Estilos del botón del contador */
 #contador-carrito {
     position: absolute;
     top: -8px;
@@ -170,7 +150,7 @@ header nav {
     color: white;
     border-radius: 50%;
     padding: 2px 6px;
-    font-size: 12px;   
+    font-size: 12px;
 }
 
 h3 {
@@ -178,9 +158,148 @@ h3 {
     margin: 0 0 1rem 0;
 }
 
-.carrito-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+/* Nuevos estilos para los items del carrito */
+.carrito-item-contenido {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.carrito-item-imagen img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.carrito-item-detalles {
+    min-width: 0;
+    overflow: hidden;
     color: black;
 }
+
+.carrito-item-nombre {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.25rem;
+}
+
+.carrito-item-precio {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.carrito-item-specs {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.carrito-item-controles {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.cantidad-controles {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cantidad-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: black;
+}
+
+.cantidad-btn:hover {
+    background-color: #f5f5f5;
+}
+
+.cantidad-valor {
+    min-width: 20px;
+    text-align: center;
+    color: black;
+}
+
+.eliminar-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eliminar-btn:hover {
+    color: #cc0000;
+}
+
+.carrito-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    background: white;
+    position: sticky;
+    bottom: 0;
+}
+
+.carrito-total {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: right;
+}
+
+/* Estilos para el botón de checkout */
+.carrito-checkout {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+}
+
+.carrito-checkout:hover {
+    background-color: #0056b3;
+}
+
+.btn-principal, .carrito-checkout {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-principal:hover, .carrito-checkout:hover {
+    background-color: #0056b3;
+}
+

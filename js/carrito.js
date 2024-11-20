@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (carritoData.length === 0) {
             carrito.innerHTML += '<p>Tu carrito está vacío</p>';
-            carrito.innerHTML += '<button onclick="window.location.href=\'./index.php\'">Seguir comprando</button>';
+            carrito.innerHTML += '<button onclick="window.location.href=\'./diseno.php\'" class="btn-principal">Seguir comprando</button>';
             return;
         }
 
@@ -36,18 +36,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const itemElement = document.createElement('div');
             itemElement.className = 'carrito-item';
             itemElement.innerHTML = `
-                <div style="display: flex; align-items: center;">
-                    <img src="${item.imagen}" alt="${item.nombre}" style="width: 50px; height: 50px; margin-right: 10px; object-fit: cover;">
-                    <div>
-                        <div><strong>${item.nombre}</strong></div>
-                        <div>${formatearPrecio(item.precio)}</div>
-                        <div>Talla: ${item.talla} | Color: ${item.color}</div>
+                <div class="carrito-item-contenido">
+                    <div class="carrito-item-imagen">
+                        <img src="${item.imagen}" alt="${item.nombre}">
                     </div>
-                    <div style="margin-left: auto; display: flex; align-items: center;">
-                        <button onclick="modificarCantidad(${index}, -1)" style="background: none; border: none; padding: 0 5px; color: black;">-</button>
-                        <span>${item.cantidad}</span>
-                        <button onclick="modificarCantidad(${index}, 1)" style="background: none; border: none; padding: 0 5px; color: black;">+</button>
-                        <button onclick="eliminarDelCarrito(${index})" style="background: none; border: none; color: red; margin-left: 10px;">🗑️</button>
+                    <div class="carrito-item-detalles">
+                        <div class="carrito-item-nombre"><strong>${item.nombre}</strong></div>
+                        <div class="carrito-item-precio">${formatearPrecio(item.precio)}</div>
+                        <div class="carrito-item-specs">Talla: ${item.talla} | Color: ${item.color}</div>
+                    </div>
+                    <div class="carrito-item-controles">
+                        <div class="cantidad-controles">
+                            <button onclick="modificarCantidad(${index}, -1)" class="cantidad-btn">-</button>
+                            <span class="cantidad-valor">${item.cantidad}</span>
+                            <button onclick="modificarCantidad(${index}, 1)" class="cantidad-btn">+</button>
+                        </div>
+                        <button onclick="eliminarDelCarrito(${index})" class="eliminar-btn">🗑️</button>
                     </div>
                 </div>
             `;
@@ -58,12 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Agregar el total y botones
         const totalElement = document.createElement('div');
-        totalElement.style.marginTop = '10px';
+        totalElement.className = 'carrito-footer';
         totalElement.innerHTML = `
-            <div style="font-weight: bold; margin-bottom: 10px;">
+            <div class="carrito-total">
                 Total: ${formatearPrecio(calcularTotal())}
             </div>
-            <button onclick="window.location.href='./carrito.php'">Ir al Carrito</button>
+            <button onclick="window.location.href='./carrito.php'" class="carrito-checkout">Ir al Carrito</button>
         `;
         carrito.appendChild(totalElement);
     };
@@ -86,14 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const itemActual = carritoData[index];
         const nuevaCantidad = itemActual.cantidad + cambio;
 
-        // Verificar si la nueva cantidad está en el rango permitido (1-10)
         if (nuevaCantidad > 0 && nuevaCantidad <= 10) {
             itemActual.cantidad = nuevaCantidad;
             actualizarCarrito();
         } else if (nuevaCantidad === 0) {
             eliminarDelCarrito(index);
         } else {
-            // Mostrar mensaje visual si se excede el límite de cantidad
             alert('La cantidad no puede superar 10 unidades.');
         }
     };
@@ -111,19 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarContadorCarrito();
     };
 
-    // Event listener para el botón del carrito
+    // Event listeners
     carritoBtn.addEventListener("click", (event) => {
         event.stopPropagation();
         carrito.classList.toggle("show");
         actualizarCarritoUI();
     });
 
-    // Prevenir que los clics dentro del carrito cierren el carrito
     carrito.addEventListener("click", (event) => {
         event.stopPropagation();
     });
 
-    // Cerrar el carrito cuando se hace clic fuera
     document.addEventListener("click", (event) => {
         if (!carrito.contains(event.target) && !carritoBtn.contains(event.target)) {
             carrito.classList.remove("show");
