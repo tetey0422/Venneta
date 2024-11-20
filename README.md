@@ -120,6 +120,6 @@ Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE
 
 Si tienes preguntas o sugerencias, no dudes en contactarnos:
 
-GitHub (Jefrey): https://github.com/tetey0422
-GitHub (Valeria): https://github.com/yeyaaaaaa
-GitHub (Cristian): https://github.com/Itemt
+- GitHub (Jefrey): https://github.com/tetey0422
+- GitHub (Valeria): https://github.com/yeyaaaaaa
+- GitHub (Cristian): https://github.com/Itemt
