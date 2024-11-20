@@ -1,24 +1,24 @@
-// js/scroll.js
 document.addEventListener('DOMContentLoaded', function () {
-    // Obtener todos los enlaces con la clase scroll-link
-    const scrollLinks = document.querySelectorAll('.scroll-link');
+    // Obtener todos los enlaces con scroll-link, logo, e inicio
+    const scrollLinks = document.querySelectorAll('.scroll-link, a[href="./index.php"], a[href="./"');
 
     scrollLinks.forEach(link => {
         link.addEventListener('click', function (e) {
-            // Solo prevenir el comportamiento predeterminado si estamos en index.php
-            if (window.location.pathname.endsWith('http://localhost/venneta/index.php') ||
-                window.location.pathname.endsWith('http://localhost/venneta/')) {
+            const currentPath = window.location.pathname;
+            const isIndexPage = currentPath.endsWith('index.php') ||
+                currentPath.endsWith('/venneta/') ||
+                currentPath.endsWith('/venneta');
+
+            if (isIndexPage) {
+                // Si estamos en index.php, hacer scroll suave
                 e.preventDefault();
-
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Si estamos en otra página, redirigir a index.php
+                window.location.href = './index.php';
             }
         });
     });

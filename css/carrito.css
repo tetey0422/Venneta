@@ -82,3 +82,37 @@ button:hover {
 main h3 {
     margin: 1rem 0 1rem 0;
 }
+
+/* Estilos específicos para cuando NO estamos en la página del carrito */
+body:not(.carrito-page) #carrito.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Estilos específicos para cuando estamos en la página del carrito */
+.carrito-page #carrito {
+    display: none !important;
+}
+
+/* Asegurarse de que el botón del carrito se vea correctamente en todas las páginas */
+#carrito-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Mantener el contador visible en todas las páginas */
+#contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}

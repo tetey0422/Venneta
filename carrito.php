@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jura:wght@300..700&display=swap">
 </head>
 
-<body>
+<body class="carrito-page">
     <?php include 'includes/header.php'; ?>
     <main>
         <div id="carrito-contenido">

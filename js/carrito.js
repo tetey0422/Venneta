@@ -2,9 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const carritoBtn = document.querySelector("#carrito-btn");
     const carrito = document.querySelector("#carrito");
     const contadorCarrito = document.getElementById('contador-carrito');
+    const isCarritoPage = window.location.pathname.includes('carrito.php');
 
-    // Cargar el carrito desde localStorage al iniciar
-    let carritoData = JSON.parse(localStorage.getItem('carrito')) || [];
+    // Safe localStorage initialization
+    const initializeCarrito = () => {
+        try {
+            let carritoData = JSON.parse(localStorage.getItem('carrito'));
+            return Array.isArray(carritoData) ? carritoData : [];
+        } catch (error) {
+            console.error("Error initializing cart:", error);
+            return [];
+        }
+    };
+
+    let carritoData = initializeCarrito();
 
     // Función para formatear precio en pesos colombianos
     const formatearPrecio = (precio) => {
@@ -22,6 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para actualizar la visualización del carrito
     const actualizarCarritoUI = () => {
+        if (!carrito) return;
+
+        // No mostrar el popup si estamos en la página del carrito
+        if (isCarritoPage) {
+            carrito.style.display = 'none';
+            return;
+        }
+
         carrito.innerHTML = '<h3>Tu carrito</h3>';
 
         if (carritoData.length === 0) {
@@ -61,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         carrito.appendChild(itemsContainer);
 
-        // Agregar el total y botones
         const totalElement = document.createElement('div');
         totalElement.className = 'carrito-footer';
         totalElement.innerHTML = `
@@ -73,84 +91,39 @@ document.addEventListener("DOMContentLoaded", () => {
         carrito.appendChild(totalElement);
     };
 
-    // Función para proceder al pago en WhatsApp
-    window.procederAlPago = async () => {
-        if (carritoData.length === 0) return;
-
-        let usuario = null;
-        try {
-            const response = await fetch('obtener_usuario.php');
-            if (response.ok) {
-                usuario = await response.json();
+    // Event listeners para el botón del carrito
+    if (carritoBtn && carrito) {
+        carritoBtn.addEventListener("click", (event) => {
+            // Si estamos en la página del carrito, no hacer nada
+            if (isCarritoPage) {
+                event.preventDefault();
+                return;
             }
-        } catch (error) {
-            console.error('Error fetching user details:', error);
+
+            event.stopPropagation();
+            carrito.classList.toggle("show");
+            actualizarCarritoUI();
+        });
+
+        // Solo agregar el listener de documento si no estamos en la página del carrito
+        if (!isCarritoPage) {
+            document.addEventListener("click", (event) => {
+                const isClickInsideCarrito = carrito.contains(event.target);
+                const isClickOnCarritoBtn = carritoBtn.contains(event.target);
+
+                if (!isClickInsideCarrito && !isClickOnCarritoBtn) {
+                    carrito.classList.remove("show");
+                }
+            });
         }
+    }
 
-        const mensaje = carritoData.map(item =>
-            `- ${item.nombre} (${item.cantidad} x ${formatearPrecio(item.precio)}), Talla: ${item.talla}, Color: ${item.color}`
-        ).join('%0A');
-        const total = formatearPrecio(calcularTotal());
-
-        // Include user name if registered
-        const mensajeInicial = usuario
-            ? `Hola, soy ${usuario.nombre}, quiero proceder al pago de mi carrito:%0A`
-            : 'Hola, quiero proceder al pago de mi carrito:%0A';
-
-        const url = `https://api.whatsapp.com/send/?phone=%2B573046165621&text=${mensajeInicial}${mensaje}%0A%0ATotal%3A+${total}`;
-        window.open(url, '_blank');
-    };
-
-    // Función para modificar la cantidad de un producto
-    window.modificarCantidad = (index, cambio) => {
-        const itemActual = carritoData[index];
-        const nuevaCantidad = itemActual.cantidad + cambio;
-
-        if (nuevaCantidad > 0 && nuevaCantidad <= 10) {
-            itemActual.cantidad = nuevaCantidad;
-            actualizarCarrito();
-        } else if (nuevaCantidad === 0) {
-            eliminarDelCarrito(index);
-        } else {
-            alert('La cantidad no puede superar 10 unidades.');
-        }
-    };
-
-    // Función para eliminar un item del carrito
-    window.eliminarDelCarrito = (index) => {
-        carritoData.splice(index, 1);
-        actualizarCarrito();
-    };
-
-    // Actualiza el carrito en localStorage y la UI
-    const actualizarCarrito = () => {
-        localStorage.setItem('carrito', JSON.stringify(carritoData));
-        actualizarCarritoUI();
-        actualizarContadorCarrito();
-    };
-
-    // Event listeners
-    carritoBtn.addEventListener("click", (event) => {
-        event.stopPropagation();
-        carrito.classList.toggle("show");
-        actualizarCarritoUI();
-    });
-
-    carrito.addEventListener("click", (event) => {
-        event.stopPropagation();
-    });
-
-    document.addEventListener("click", (event) => {
-        if (!carrito.contains(event.target) && !carritoBtn.contains(event.target)) {
-            carrito.classList.remove("show");
-        }
-    });
-
-    // Actualizar contador de carrito
+    // Función para actualizar el contador del carrito
     const actualizarContadorCarrito = () => {
         if (contadorCarrito) {
-            if (carritoData.length > 0) {
-                contadorCarrito.textContent = carritoData.length;
+            const totalItems = carritoData.reduce((total, item) => total + item.cantidad, 0);
+            if (totalItems > 0) {
+                contadorCarrito.textContent = totalItems;
                 contadorCarrito.classList.remove('hidden');
                 contadorCarrito.classList.add('pop-animation');
             } else {
@@ -160,8 +133,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // Funciones para modificar cantidades y eliminar items
+    window.modificarCantidad = (index, cambio) => {
+        if (index >= 0 && index < carritoData.length) {
+            const nuevaCantidad = carritoData[index].cantidad + cambio;
+            if (nuevaCantidad > 0) {
+                carritoData[index].cantidad = nuevaCantidad;
+            } else {
+                carritoData.splice(index, 1);
+            }
+            localStorage.setItem('carrito', JSON.stringify(carritoData));
+            actualizarCarritoUI();
+            actualizarContadorCarrito();
+        }
+    };
+
+    window.eliminarDelCarrito = (index) => {
+        if (index >= 0 && index < carritoData.length) {
+            carritoData.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carritoData));
+            actualizarCarritoUI();
+            actualizarContadorCarrito();
+        }
+    };
+
     // Inicializar el carrito
-    contadorCarrito.classList.add('hidden');
-    actualizarCarritoUI();
     actualizarContadorCarrito();
+    if (!isCarritoPage) {
+        actualizarCarritoUI();
+    }
+
+    // Escuchar cambios en localStorage
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'carrito') {
+            carritoData = JSON.parse(event.newValue) || [];
+            actualizarContadorCarrito();
+            if (!isCarritoPage) {
+                actualizarCarritoUI();
+            }
+        }
+    });
 });
