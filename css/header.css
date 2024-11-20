@@ -296,3 +296,15 @@ h3 {
     background-color: #0056b3;
 }
 
+@keyframes popAnimation {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.pop-animation {
+    animation: popAnimation 0.5s ease-in-out;
+}
+
+#contador-carrito.hidden {
+    display: none;
+}

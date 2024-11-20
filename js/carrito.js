@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const carritoBtn = document.querySelector("#carrito-btn");
     const carrito = document.querySelector("#carrito");
+    const contadorCarrito = document.getElementById('contador-carrito');
 
     // Cargar el carrito desde localStorage al iniciar
     let carritoData = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -73,15 +74,30 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Función para proceder al pago en WhatsApp
-    window.procederAlPago = () => {
+    window.procederAlPago = async () => {
         if (carritoData.length === 0) return;
+
+        let usuario = null;
+        try {
+            const response = await fetch('obtener_usuario.php');
+            if (response.ok) {
+                usuario = await response.json();
+            }
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+        }
 
         const mensaje = carritoData.map(item =>
             `- ${item.nombre} (${item.cantidad} x ${formatearPrecio(item.precio)}), Talla: ${item.talla}, Color: ${item.color}`
         ).join('%0A');
         const total = formatearPrecio(calcularTotal());
 
-        const url = `https://api.whatsapp.com/send/?phone=%2B573046165621&text=Hola%2C+quiero+proceder+al+pago+de+mi+carrito%3A%0A${mensaje}%0A%0ATotal%3A+${total}`;
+        // Include user name if registered
+        const mensajeInicial = usuario
+            ? `Hola, soy ${usuario.nombre}, quiero proceder al pago de mi carrito:%0A`
+            : 'Hola, quiero proceder al pago de mi carrito:%0A';
+
+        const url = `https://api.whatsapp.com/send/?phone=%2B573046165621&text=${mensajeInicial}${mensaje}%0A%0ATotal%3A+${total}`;
         window.open(url, '_blank');
     };
 
@@ -132,13 +148,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Actualizar contador de carrito
     const actualizarContadorCarrito = () => {
-        const contadorCarrito = document.getElementById('contador-carrito');
         if (contadorCarrito) {
-            contadorCarrito.textContent = carritoData.length;
+            if (carritoData.length > 0) {
+                contadorCarrito.textContent = carritoData.length;
+                contadorCarrito.classList.remove('hidden');
+                contadorCarrito.classList.add('pop-animation');
+            } else {
+                contadorCarrito.classList.add('hidden');
+                contadorCarrito.classList.remove('pop-animation');
+            }
         }
     };
 
     // Inicializar el carrito
+    contadorCarrito.classList.add('hidden');
     actualizarCarritoUI();
     actualizarContadorCarrito();
 });
