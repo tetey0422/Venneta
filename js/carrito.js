@@ -154,4 +154,73 @@ document.addEventListener("DOMContentLoaded", () => {
             actualizarCarritoUI();
         }
     });
+
+    window.procederAlPago = () => {
+        // Recuperar carrito del localStorage
+        const carritoItems = JSON.parse(localStorage.getItem('carrito')) || [];
+
+        // Verificar si el carrito está vacío
+        if (carritoItems.length === 0) {
+            alert('Tu carrito está vacío');
+            return;
+        }
+
+        // Función para obtener datos del usuario
+        const obtenerDatosUsuario = () => {
+            return new Promise((resolve) => {
+                fetch('obtener_usuario.php')
+                    .then(response => {
+                        if (!response.ok) {
+                            // Si no está autenticado, resuelve con null
+                            resolve(null);
+                            return;
+                        }
+                        return response.json();
+                    })
+                    .then(usuario => {
+                        resolve(usuario);
+                    })
+                    .catch(() => {
+                        // En caso de cualquier error, resuelve con null
+                        resolve(null);
+                    });
+            });
+        };
+
+        // Función para generar mensaje de WhatsApp
+        const generarMensajeWhatsApp = (usuario) => {
+            // Saludo inicial con nombre de usuario si está registrado
+            let mensaje = usuario
+                ? `Hola ${usuario.nombre}, quiero proceder al pago de mi carrito\n\n`
+                : "Hola, quiero proceder al pago de mi carrito\n\n";
+
+            // Agregar detalles de cada producto
+            let total = 0;
+            carritoItems.forEach(item => {
+                mensaje += `- ${item.nombre} (${item.cantidad} x ${formatearPrecio(item.precio)}), Talla: ${item.talla}, Color: ${item.color}\n`;
+                total += item.precio * item.cantidad;
+            });
+
+            // Agregar total
+            mensaje += `Total: ${formatearPrecio(total)}`;
+
+            return mensaje;
+        };
+
+        // Proceder con el pago independientemente de la autenticación
+        obtenerDatosUsuario().then(usuario => {
+            // Codificar el mensaje para URL
+            const mensaje = generarMensajeWhatsApp(usuario);
+            const mensajeCodificado = encodeURIComponent(mensaje);
+
+            // Número de WhatsApp (reemplaza con tu número real)
+            const numeroWhatsApp = "573123456789"; // Ejemplo, usa tu número real de WhatsApp
+
+            // Construir enlace de WhatsApp
+            const enlaceWhatsApp = `https://wa.me/+573046165621?text=${mensajeCodificado}`;
+
+            // Abrir WhatsApp en una nueva ventana
+            window.open(enlaceWhatsApp, '_blank');
+        });
+    };
 });
