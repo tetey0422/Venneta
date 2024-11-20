@@ -98,11 +98,12 @@ header nav {
     position: absolute;
     top: 50px;
     right: 20px;
-    width: 300px;
+    width: 450px; /* Aumentar el ancho */
+    max-width: calc(100vw - 40px); /* Responsive */
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 16px;
+    padding: 20px; /* Aumentar padding */
     z-index: 1000;
     opacity: 0;
     transform: scale(0.9);
@@ -114,11 +115,8 @@ body:not(.carrito-page) #carrito.show {
     display: block;
     opacity: 1;
     transform: scale(1);
-}
-
-/* Estilos específicos para cuando estamos en la página del carrito */
-.carrito-page #carrito {
-    display: none !important;
+    top: 35px;
+    right: 0;
 }
 
 .carrito-items {
@@ -179,8 +177,8 @@ h3 {
 }
 
 .carrito-item-imagen img {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -273,6 +271,7 @@ h3 {
     font-weight: bold;
     margin-bottom: 1rem;
     text-align: right;
+    color: black;
 }
 
 .carrito-checkout {
@@ -327,4 +326,19 @@ h3 {
 
 #contador-carrito.hidden {
     display: none;
+}
+.carrito-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.carrito-popup.show {
+    display: block;
 }

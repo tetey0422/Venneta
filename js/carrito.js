@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const carritoBtn = document.querySelector("#carrito-btn");
     const carrito = document.querySelector("#carrito");
     const contadorCarrito = document.getElementById('contador-carrito');
-    const isCarritoPage = window.location.pathname.includes('carrito.php');
 
     // Safe localStorage initialization
     const initializeCarrito = () => {
@@ -34,12 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para actualizar la visualización del carrito
     const actualizarCarritoUI = () => {
         if (!carrito) return;
-
-        // No mostrar el popup si estamos en la página del carrito
-        if (isCarritoPage) {
-            carrito.style.display = 'none';
-            return;
-        }
 
         carrito.innerHTML = '<h3>Tu carrito</h3>';
 
@@ -91,31 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
         carrito.appendChild(totalElement);
     };
 
-    // Event listeners para el botón del carrito
+    // Agregar event listeners solo si los elementos existen
     if (carritoBtn && carrito) {
         carritoBtn.addEventListener("click", (event) => {
-            // Si estamos en la página del carrito, no hacer nada
-            if (isCarritoPage) {
-                event.preventDefault();
-                return;
-            }
 
             event.stopPropagation();
             carrito.classList.toggle("show");
             actualizarCarritoUI();
         });
 
-        // Solo agregar el listener de documento si no estamos en la página del carrito
-        if (!isCarritoPage) {
-            document.addEventListener("click", (event) => {
-                const isClickInsideCarrito = carrito.contains(event.target);
-                const isClickOnCarritoBtn = carritoBtn.contains(event.target);
+        document.addEventListener("click", (event) => {
+            const isClickInsideCarrito = carrito.contains(event.target);
+            const isClickOnCarritoBtn = carritoBtn.contains(event.target);
 
-                if (!isClickInsideCarrito && !isClickOnCarritoBtn) {
-                    carrito.classList.remove("show");
-                }
-            });
-        }
+            if (!isClickInsideCarrito && !isClickOnCarritoBtn) {
+                carrito.classList.remove("show");
+            }
+        });
     }
 
     // Función para actualizar el contador del carrito
@@ -133,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Funciones para modificar cantidades y eliminar items
+    // Funciones para modificar cantidades y eliminar items son globales
     window.modificarCantidad = (index, cambio) => {
         if (index >= 0 && index < carritoData.length) {
             const nuevaCantidad = carritoData[index].cantidad + cambio;
@@ -159,18 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Inicializar el carrito
     actualizarContadorCarrito();
-    if (!isCarritoPage) {
-        actualizarCarritoUI();
-    }
+    actualizarCarritoUI();
 
     // Escuchar cambios en localStorage
     window.addEventListener('storage', (event) => {
         if (event.key === 'carrito') {
             carritoData = JSON.parse(event.newValue) || [];
             actualizarContadorCarrito();
-            if (!isCarritoPage) {
-                actualizarCarritoUI();
-            }
+            actualizarCarritoUI();
         }
     });
 });

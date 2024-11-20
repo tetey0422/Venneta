@@ -16,6 +16,9 @@
 
 <body class="carrito-page">
     <?php include 'includes/header.php'; ?>
+    <div id="carrito">
+        <!-- Este div será llenado dinámicamente por JavaScript -->
+    </div>
     <main>
         <div id="carrito-contenido">
             <h3>Tu carrito</h3>
@@ -86,6 +89,7 @@
         };
     </script>
     <?php include 'includes/footer.php'; ?>
+    <script nonce="randomString" src="./js/carrito.js"></script>
 </body>
 
 </html>

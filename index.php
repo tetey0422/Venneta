@@ -52,6 +52,7 @@
     </main>
     <?php include 'includes/footer.php'; ?>
     <script src="./js/scroll.js"></script>
+    <script nonce="randomString" src="./js/carrito.js"></script>
 </body>
 
 </html>

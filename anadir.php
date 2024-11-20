@@ -214,6 +214,7 @@
         </script>
     </main>
     <?php include 'includes/footer.php'; ?>
+    <script nonce="randomString" src="./js/carrito.js"></script>
 </body>
 
 </html>
