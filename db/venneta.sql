@@ -249,13 +249,13 @@ INSERT INTO TTalla_Color_Producto (nProductoID, nTallaID, nColorID, nCantidad, c
 VALUES 
 -- Van Gogh
 (1, 1, 1, 2, 'img/vgb.jpg'), -- 2 unidades en talla S y color Blanco
-(1, 1, 2, 1, 'img/vgn.jpg'), -- 1 unidad en talla S y color Negro
+-- (1, 1, 2, 1, 'img/vgn.jpg'), -- 1 unidad en talla S y color Negro
 (1, 2, 1, 1, 'img/vgb.jpg'), -- 1 unidad en talla M y color Blanco
-(1, 2, 2, 2, 'img/vgn.jpg'), -- 2 unidades en talla M y color Negro
+-- (1, 2, 2, 2, 'img/vgn.jpg'), -- 2 unidades en talla M y color Negro
 (1, 3, 1, 2, 'img/vgb.jpg'), -- 2 unidades en talla L y color Blanco
-(1, 3, 2, 1, 'img/vgn.jpg'), -- 1 unidad en talla L y color Negro
+-- (1, 3, 2, 1, 'img/vgn.jpg'), -- 1 unidad en talla L y color Negro
 (1, 4, 1, 1, 'img/vgb.jpg'), -- 1 unidad en talla XL y color Blanco
-(1, 4, 2, 2, 'img/vgn.jpg'), -- 2 unidades en talla XL y color Negro
+-- (1, 4, 2, 2, 'img/vgn.jpg'), -- 2 unidades en talla XL y color Negro
 -- Capitana América
 (2, 1, 1, 2, 'img/capb.jpg'), -- 2 unidades en talla S y color Blanco
 (2, 1, 2, 1, 'img/capn.jpg'), -- 1 unidad en talla S y color Negro
@@ -275,11 +275,11 @@ VALUES
 (3, 4, 1, 1, 'img/mm.jpg'), -- 1 unidad en talla XL y color Blanco
 (3, 4, 2, 2, 'img/nn.jpg'), -- 2 unidades en talla XL y color Negro
 -- Betty la Fea
-(4, 1, 1, 2, 'img/bfGTAb.png'), -- 2 unidades en talla S y color Blanco
+-- (4, 1, 1, 2, 'img/bfGTAb.png'), -- 2 unidades en talla S y color Blanco
 (4, 1, 2, 1, 'img/bfGTAn.png'), -- 1 unidad en talla S y color Negro
-(4, 2, 1, 1, 'img/bfGTAb.png'), -- 1 unidad en talla M y color Blanco
+-- (4, 2, 1, 1, 'img/bfGTAb.png'), -- 1 unidad en talla M y color Blanco
 (4, 2, 2, 2, 'img/bfGTAn.png'), -- 2 unidades en talla M y color Negro
-(4, 3, 1, 2, 'img/bfGTAb.png'), -- 2 unidades en talla L y color Blanco
+-- (4, 3, 1, 2, 'img/bfGTAb.png'), -- 2 unidades en talla L y color Blanco
 (4, 3, 2, 1, 'img/bfGTAn.png'), -- 1 unidad en talla L y color Negro
-(4, 4, 1, 1, 'img/bfGTAb.png'), -- 1 unidad en talla XL y color Blanco
+-- (4, 4, 1, 1, 'img/bfGTAb.png'), -- 1 unidad en talla XL y color Blanco
 (4, 4, 2, 2, 'img/bfGTAn.png'); -- 2 unidades en talla XL y color Negro
