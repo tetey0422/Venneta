@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($error)) {
-        require_once 'db_connect.php';
+        require_once 'includes/config.php';
 
         try {
             // Start a transaction

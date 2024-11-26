@@ -1,12 +1,12 @@
 <?php
-require_once 'db_connect.php';
+require_once 'includes/config.php';
 $error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $contrasena = $_POST['contrasena'];
 
     // Corrected prepared statement using ? placeholders
-    $stmt = $pdo->prepare("SELECT u.nUsuarioID, u.cNombre_Usuario, u.cContraseña, c.cNombre 
+    $stmt = $pdo->prepare("SELECT u.nUsuarioID, u.cNombre_Usuario, u.cContraseña, u.eRol, c.cNombre 
                             FROM TUsuario u
                             LEFT JOIN TCliente c ON u.nUsuarioID = c.nUsuarioID
                             WHERE u.cEmail = ? OR u.cNombre_Usuario = ?");
@@ -18,7 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user['nUsuarioID'];
         $_SESSION['username'] = $user['cNombre_Usuario'];
         $_SESSION['nombre'] = $user['cNombre'];
-        header("Location: index.php");
+        $_SESSION['rol'] = $user['eRol'];
+        
+        if ($_SESSION['rol'] === 'admin') {
+            header("Location: admin.php");
+        } else {
+            header("Location: index.php");
+        }
         exit();
     } else {
         $error = "Usuario o contraseña incorrectos";

@@ -1,0 +1,149 @@
+:root {
+    --fuente-principal: "Jura", sans-serif;
+    --fuente-fuerte: "Archivo Black", sans-serif;
+    --color-principal: #DBFF73;
+    --color-hover: #657536;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--fuente-principal);
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-family: var(--fuente-fuerte);
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: var(--fuente-fuerte);
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: var(--fuente-principal);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.size-color-grid {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.size-column {
+    flex: 1;
+}
+
+.size-column h4 {
+    font-family: var(--fuente-fuerte);
+    margin-bottom: 0.5rem;
+}
+
+.color-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.color-row input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.color-row .cantidad-input {
+    max-width: 80px;
+    margin-left: auto;
+}
+
+button[type="submit"] {
+    background-color: var(--color-principal);
+    border-radius: 50px;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--fuente-principal);
+    font-size: 1rem;
+    cursor: pointer;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--color-hover);
+    color: white;
+}
+
+button[type="submit"]:active {
+    background-color: #ffffff;
+    color: #7B7B7B;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-danger {
+    background-color: #ffdddd;
+    color: #f44336;
+}
+
+.alert-success {
+    background-color: #ddffdd;
+    color: #4CAF50;
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .size-color-grid {
+        flex-direction: column;
+    }
+}

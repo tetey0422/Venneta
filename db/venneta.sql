@@ -3,9 +3,10 @@ Use BDVenneta;
 
 create table if not exists TUsuario(
 	nUsuarioID int auto_increment,
-    cEmail varchar(50) unique,
-    cNombre_Usuario varchar(50) not null,
+    cEmail varchar(50) unique not null,
+    cNombre_Usuario varchar(50) unique not null,
     cContraseña varchar(200) not null,
+    eRol enum('user','admin') default 'user' not null,
     primary key(nUsuarioID)
 )engine=INNODB;
 
